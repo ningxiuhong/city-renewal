@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>城市更新政策资金 · 五大渠道交互图谱</title>
+<style>
+:root{
+  --line:#e2e7f1; --paper:#ffffff; --ink:#222b3f; --mut:#68738a; --bg:#edf1f8;
+  --c-dept:#4a5f8f; --c-scope:#0e7c78; --c-amt:#b03a2e; --c-feat:#7a54a3; --c-req:#3b7a4e; --c-opt:#8a6d3b;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:14px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;-webkit-font-smoothing:antialiased;
+  background:linear-gradient(180deg,#f8fafd 0,#edf1f8 340px,#edf1f8 100%) fixed;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 18px 56px}
+
+/* ---------- 顶栏 ---------- */
+header.mast{position:relative;overflow:hidden;display:flex;gap:18px;align-items:center;justify-content:space-between;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px 28px;margin:22px 0 14px;
+  box-shadow:0 8px 26px rgba(30,50,90,.07)}
+header.mast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+  background:linear-gradient(180deg,#c62828,#b7791f,#1f6fb2,#2e7d32,#6a4fa3)}
+header.mast::after{content:"";position:absolute;right:-70px;top:-80px;width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle,rgba(31,111,178,.10),transparent 70%);pointer-events:none}
+.mastl{position:relative;z-index:1}
+.kick{font-size:11.5px;letter-spacing:2.5px;color:#9aa3b5;font-weight:600;margin-bottom:4px}
+h1{margin:0;font-size:27px;line-height:1.3;font-weight:800;letter-spacing:.3px}
+h1 b{color:#c62828;font-weight:800}
+.lead{margin:7px 0 0;font-size:13.5px;color:#55607a}
+.lead b{color:#313c57}
+.mastr{position:relative;z-index:1;flex:none;text-align:right;font-size:12px;color:#8b95a9;line-height:2}
+.mastr b{display:block;font-size:16px;color:#2a3350}
+
+/* ---------- 导航 ---------- */
+nav.pills{position:sticky;top:0;z-index:40;display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+  padding:10px 2px;margin:2px 0 14px;border-radius:16px}
+.pill{appearance:none;border:1px solid #d8deea;background:#fff;color:#3a4459;cursor:pointer;
+  padding:9px 16px;border-radius:999px;font-size:13.5px;font-weight:600;font-family:inherit;
+  box-shadow:0 1px 3px rgba(25,40,80,.06);transition:transform .12s,box-shadow .12s,background .12s;user-select:none}
+.pill:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(25,40,80,.13)}
+.pill:active{transform:translateY(0)}
+.pill.on{color:#fff;box-shadow:0 6px 16px rgba(25,40,80,.20)}
+.pill .dot{display:none}
+
+section.view{display:none}
+section.view.on{display:block;animation:fv .2s ease}
+@keyframes fv{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ---------- 通用卡片 ---------- */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.card h4{margin:0 0 10px;font-size:15px;color:#2a3350;display:flex;align-items:center;gap:8px}
+.tip{background:#f7f9ff;border:1px dashed #c6d0e6;border-radius:12px;padding:8px 14px;color:#4d5872;font-size:12.5px;margin-top:12px}
+.tip b{color:#2a3350}
+
+/* ---------- 总览 KPI ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:2px 0 16px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 16px;position:relative;overflow:hidden;
+  box-shadow:0 3px 10px rgba(20,40,80,.05)}
+.kpi::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--cc)}
+.kpi .ic{font-size:21px;position:absolute;right:14px;top:12px;opacity:.9}
+.kpi .nm{font-size:12.5px;font-weight:700;color:#3a4459;margin-top:4px}
+.kpi .num{display:block;font-size:25px;font-weight:800;color:var(--cc);letter-spacing:.3px;line-height:1.25}
+.kpi .cap{display:block;font-size:11.5px;color:var(--mut);margin-top:4px;line-height:1.55}
+
+.ovgrid{display:grid;grid-template-columns:1.18fr .82fr;gap:14px;align-items:stretch}
+@media (max-width:900px){.ovgrid{grid-template-columns:1fr}}
+
+/* ---------- 总览 渠道一览 ---------- */
+.legend{display:flex;flex-direction:column}
+.lrow{display:flex;gap:12px;align-items:flex-start;padding:10px 8px;border-bottom:1px dashed #eef1f7}
+.lrow:last-child{border-bottom:none}
+.lrow i{flex:none;width:11px;height:11px;border-radius:50%;margin-top:7px;box-shadow:0 0 0 4px rgba(20,40,80,.05)}
+.lrow b{font-size:14px;color:#2a3350}
+.lrow p{margin:1px 0 0;font-size:12px;color:var(--mut);line-height:1.55}
+
+.hubwrap{background:linear-gradient(180deg,#fbfcff,#f5f8fd);border:1px solid var(--line);border-radius:14px;padding:6px}
+.hubwrap svg{width:100%;height:auto;display:block}
+
+/* ---------- 渠道页 ---------- */
+.cband{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:#fff;border:1px solid var(--line);
+  border-left:6px solid var(--cc);border-radius:16px;padding:16px 20px;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.cbicon{flex:none;width:58px;height:58px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:30px}
+.cbt{flex:1;min-width:230px}
+.cbt h2{margin:0;font-size:22px;font-weight:800}
+.ctag{margin:2px 0 0;font-size:13px;color:var(--mut)}
+.cbmini{flex:none;font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;background:#fff}
+.csub{margin:12px 0 0;padding:10px 14px;background:#fbfcfe;border:1px dashed var(--line);border-radius:12px;
+  color:#44506c;font-size:13px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:10px;margin:13px 0 6px}
+.fact{background:#fff;border:1px solid var(--line);border-left:3px solid var(--cc);border-radius:10px;padding:7px 12px;
+  box-shadow:0 1px 5px rgba(20,40,80,.04)}
+.fk{display:block;font-size:11px;color:var(--mut);letter-spacing:.6px;font-weight:600}
+.fv{display:block;font-size:12.5px;font-weight:700;color:#2a3350;margin-top:1px}
+
+.flowcap{margin:14px 2px 6px;font-size:12px;font-weight:700;color:#4d5872;letter-spacing:.5px}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:12px 14px;box-shadow:0 2px 8px rgba(20,40,80,.04)}
+.fnode{background:#f5f7fb;border:1px solid #d7deec;border-radius:9px;padding:6px 12px;font-size:12.5px;font-weight:600;color:#3c475e}
+.fnode.fin{color:#fff}
+.farr{color:#aab4c8;font-weight:800;margin:0 1px;font-size:13px}
+
+/* ---------- 政策卡 ---------- */
+.grib{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:24px 0 2px;padding:12px 16px 10px 0;border-bottom:2px solid var(--cc,var(--line))}
+.gb{flex:none;width:30px;height:30px;border-radius:50%;background:var(--cc,var(--ink));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.gtx b{font-size:17px;color:#2a3350}
+.gtx .gt{margin-left:10px;font-size:12.5px;color:var(--mut)}
+.gcount{margin-left:auto;font-size:11.5px;color:#8b95a9;background:#f0f3f9;border:1px solid var(--line);padding:2px 10px;border-radius:999px;font-weight:600}
+
+.pc{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:14px 0;
+  box-shadow:0 4px 14px rgba(20,40,80,.05)}
+.pch{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.pico{flex:none;width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:27px}
+.ptxt{flex:1;min-width:250px}
+.ptxt h3{margin:0;font-size:17.5px;font-weight:800;color:#1f2840;display:inline;line-height:1.4}
+.ptxt .num{display:inline-block;vertical-align:3px;font-size:11.5px;color:#5f6a83;background:#f1f3f9;border:1px solid var(--line);
+  border-radius:6px;padding:1px 7px;font-weight:600;font-family:ui-monospace,Consolas,"Courier New",monospace;margin-left:8px;white-space:nowrap}
+.off{margin:4px 0 8px;font-size:12px;color:var(--mut);line-height:1.6}
+.kws{margin-top:6px}
+.kw{display:inline-block;font-size:12px;font-weight:700;padding:3px 11px;border-radius:999px;margin:2px 6px 2px 0;color:#33405c}
+.pamt{flex:none;min-width:150px;max-width:255px;text-align:left;border-radius:14px;padding:10px 14px;margin-left:auto}
+.pamt .lbl{display:block;font-size:10.5px;letter-spacing:1.5px;color:#8892a8;font-weight:700}
+.pamt .big{display:block;font-size:15.5px;font-weight:800;line-height:1.4;margin-top:2px}
+.pamt .note2{display:block;font-size:11px;color:#8b95a9;margin-top:2px;line-height:1.5}
+@media (max-width:760px){.pamt{margin-left:0;max-width:100%}}
+
+.rows{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:10px;margin-top:14px}
+.dim{border:1px solid var(--line);border-top:3px solid var(--line);border-radius:12px;background:#fdfdff;overflow:hidden}
+.dim .dh{display:flex;align-items:center;gap:7px;padding:7px 12px 6px;font-size:11.5px;font-weight:800;letter-spacing:1px;
+  border-bottom:1px solid #eef1f6;background:#f7f9fd;color:#5a6a8f}
+.dim .dh .i2{font-size:13px}
+.dim .dc{padding:8px 12px 10px;font-size:13px;color:#333e55;line-height:1.8}
+.d-dept{border-top-color:var(--c-dept)} .d-dept .dh{color:var(--c-dept)}
+.d-scope{border-top-color:var(--c-scope)} .d-scope .dh{color:var(--c-scope)}
+.d-amt{border-top-color:var(--c-amt)} .d-amt .dh{color:var(--c-amt)}
+.d-feat{border-top-color:var(--c-feat)} .d-feat .dh{color:var(--c-feat)}
+.d-req{border-top-color:var(--c-req)} .d-req .dh{color:var(--c-req)}
+.d-opt{border-top-color:var(--c-opt)} .d-opt .dh{color:var(--c-opt)}
+.dim .dc b,.dim .dc strong{color:#b03a2e;font-weight:800}
+
+.pnote{margin-top:12px;border:1px solid #ece0d8;border-left:4px solid var(--cc,var(--c-amt));background:#fdf9f5;border-radius:0 10px 10px 0;
+  padding:8px 12px;font-size:12.5px;color:#5c4a3c;line-height:1.75}
+.pnote .lb{font-weight:800;color:#8a5a2a}
+
+/* ---------- 矩阵 ---------- */
+.mxhead{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:0 0 12px;box-shadow:0 3px 10px rgba(20,40,80,.05)}
+.mxhead h4{margin:0;font-size:16px}
+.mxhead p{margin:4px 0 0;font-size:12.5px;color:var(--mut)}
+.mx{background:#fff;border:1px solid var(--line);border-radius:16px;margin:12px 0;overflow:hidden;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.mxh{display:flex;gap:12px;align-items:center;padding:13px 18px;background:linear-gradient(90deg,#fbfcff,#fff);border-bottom:1px solid var(--line);border-left:6px solid var(--cc)}
+.mxh h3{margin:0;font-size:16.5px;font-weight:800;color:#222b3f}
+.mxshort{margin:0;padding:10px 18px 2px;font-size:12px;color:var(--mut);line-height:1.7}
+.mxg{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:2px;padding:6px 10px 12px}
+.mxc{padding:8px 10px;border-radius:8px}
+.mxc:nth-child(odd){background:#fafbfe}
+.mxc .mkl{font-size:11px;font-weight:800;letter-spacing:.6px;color:#5a6a8f;display:block;margin-bottom:2px}
+.d-dept .mkl{color:var(--c-dept)} .d-scope .mkl{color:var(--c-scope)} .d-amt .mkl{color:var(--c-amt)}
+.d-feat .mkl{color:var(--c-feat)} .d-req .mkl{color:var(--c-req)} .d-opt .mkl{color:var(--c-opt)}
+.mxc .mv{font-size:12.5px;color:#333e55;line-height:1.75}
+.maxtips{margin-top:14px}
+.maxtips li{list-style:none;position:relative;padding:4px 0 4px 30px;font-size:13px;color:#44506c;line-height:1.7}
+.maxtips li::before{content:"💡";position:absolute;left:2px;top:4px;font-size:15px}
+
+/* ---------- 项目申报指引 ---------- */
+.gcard{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:0 4px 16px rgba(20,40,80,.06)}
+.ghead{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.ghead .gi{flex:none;width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:27px;background:linear-gradient(135deg,#e9effb,#dae6fa)}
+.ghead h2{margin:0;font-size:21px;font-weight:800}
+.ghead p{margin:3px 0 0;font-size:12.5px;color:var(--mut);line-height:1.7}
+.gsteps{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+.gstep{font-size:11.5px;font-weight:700;color:#5a6a8f;background:#f4f7fd;border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+.fld{margin:17px 0 0}
+.flabel{display:block;font-size:13px;font-weight:700;color:#33405c;margin-bottom:8px}
+.flabel em{color:#c62828;font-style:normal;margin-left:2px}
+.flabel i{font-style:normal;font-weight:400;color:#93a0b8;font-size:11.5px;margin-left:7px}
+.inp{width:100%;border:1px solid #d8deea;border-radius:10px;padding:10px 12px;font:inherit;font-size:13.5px;color:var(--ink);background:#fff;outline:none;transition:border .15s,box-shadow .15s}
+.inp:focus{border-color:#7f9dd6;box-shadow:0 0 0 3px rgba(90,130,200,.13)}
+select.inp{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#8b95a9 50%),linear-gradient(135deg,#8b95a9 50%,transparent 50%);
+  background-position:calc(100% - 17px) 17px,calc(100% - 12px) 17px;background-size:5px 5px,5px 5px;background-repeat:no-repeat;padding-right:32px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.g2{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{appearance:none;border:1px solid #d8deea;background:#fff;color:#3a4459;cursor:pointer;padding:8px 13px;border-radius:11px;
+  font:inherit;font-size:13px;font-weight:600;transition:transform .12s,background .12s,border-color .12s,box-shadow .12s;user-select:none}
+.chip:hover{border-color:#9db4dd;transform:translateY(-1px)}
+.chip.on{background:#2f4d86;border-color:#2f4d86;color:#fff;box-shadow:0 4px 12px rgba(47,77,134,.25)}
+.chip.on::before{content:"✓ ";font-weight:800}
+.gfoot{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px dashed var(--line)}
+.btn{appearance:none;border:none;cursor:pointer;font:inherit;font-weight:800;border-radius:12px;padding:12px 28px;font-size:14.5px;color:#fff;
+  background:linear-gradient(135deg,#2f4d86,#1f6fb2);box-shadow:0 6px 18px rgba(31,111,178,.28);transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 9px 24px rgba(31,111,178,.34)}
+.btn.ghost{background:#fff;color:#3a4459;border:1px solid #d8deea;box-shadow:none;font-weight:700;padding:10px 18px;font-size:13px}
+.btn.ghost:hover{border-color:#9db4dd;box-shadow:0 4px 12px rgba(25,40,80,.10)}
+.gerr{color:#c62828;font-size:12.5px;font-weight:700}
+.gph{background:#f7f9ff;border:1px dashed #c6d0e6;border-radius:14px;padding:18px;text-align:center;color:#6b7692;font-size:13px;line-height:1.9}
+.gph b{color:#2f4d86}
+
+/* 结果 */
+.rsum{background:linear-gradient(135deg,#f2f7ff,#edf2fe);border:1px solid #dbe5f8;border-radius:16px;padding:16px 20px}
+.rsum h3{margin:0 0 6px;font-size:16px;color:#22315a}
+.rsum p{margin:0;font-size:13px;color:#48567a;line-height:1.9}
+.rsum b{color:#b03a2e}
+.rsum .pf{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.rsum .pf span{font-size:11.5px;font-weight:700;color:#3d4d72;background:#fff;border:1px solid #dde5f3;border-radius:999px;padding:3px 10px}
+.bchart{margin:14px 0 2px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:14px}
+.bchart .bt{font-size:12px;font-weight:800;color:#4d5872;margin-bottom:8px;letter-spacing:.4px}
+.brow{display:flex;align-items:center;gap:10px;margin:6px 0}
+.bnm{flex:none;width:200px;font-size:12px;color:#3a4459;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btrack{flex:1;height:12px;border-radius:999px;background:#eef1f7;overflow:hidden}
+.btrack i{display:block;height:100%;border-radius:999px;transition:width .5s ease}
+.bval{flex:none;width:46px;text-align:right;font-size:12px;font-weight:800;color:#5a6a8f}
+@media (max-width:640px){.bnm{width:118px;font-size:11px}}
+.rmatch{background:#fff;border:1px solid var(--line);border-left:6px solid var(--cc);border-radius:16px;padding:14px 18px;margin:12px 0;box-shadow:0 3px 12px rgba(20,40,80,.05)}
+.rmh{display:flex;gap:11px;align-items:center;flex-wrap:wrap}
+.rank{flex:none;width:29px;height:29px;border-radius:50%;background:var(--cc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+.rmh h4{margin:0;font-size:16.5px;font-weight:800;color:#1f2840}
+.rmh .rtag{font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;color:#fff;background:var(--cc);white-space:nowrap}
+.level{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.score{margin-left:auto;text-align:right;flex:none}
+.score .sv{font-size:22px;font-weight:800;color:var(--cc);line-height:1.05}
+.score .sl{font-size:10.5px;color:#8b95a9;letter-spacing:.5px}
+.bar{height:7px;border-radius:999px;background:#eef1f7;overflow:hidden;margin:10px 0 2px}
+.bar i{display:block;height:100%;border-radius:999px;background:var(--cc)}
+.rmeta{margin:8px 0 0;font-size:11.5px;color:#8b95a9}
+.rwhy{margin-top:9px;font-size:13px;color:#33405c;line-height:1.85}
+.rwhy .lb{font-weight:800;color:#2f4d86}
+.rnote{margin-top:9px;font-size:12.5px;color:#5c4a3c;background:#fdf9f5;border:1px solid #f0e3d8;border-left:4px solid #d9a441;
+  border-radius:0 10px 10px 0;padding:9px 12px;line-height:1.85}
+.rnote .lb{font-weight:800;color:#8a5a2a}
+.rnote ul{margin:4px 0 0;padding-left:17px}
+.rnote li{margin:2px 0}
+
+/* ---------- 页脚 ---------- */
+footer.foot{margin-top:30px;padding-top:16px;border-top:1px solid #d9dfeb;color:#8b95a9;font-size:11.5px;line-height:1.9;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <div class="mastl">
+      <div class="kick">政策资金研究 · 依据政策原文与官方口径提炼</div>
+      <h1>城市更新 · <b>五大政策资金渠道</b>图谱</h1>
+      <p class="lead">从「钱从哪来」出发——<b>主管部门 · 支持范围 · 支持金额 · 资金特点 · 项目要求</b>，政策要点已全部展开，顶部标签一键切换。</p>
+    </div>
+    <div class="mastr"><span><b>5</b> 大渠道</span><span><b>11</b> 份政策原文</span><span><b>1</b> 张组合对比</span><span><b>1</b> 个项目匹配工具</span></div>
+  </header>
+  <nav id="tabs" class="pills" aria-label="资金渠道切换"></nav>
+  <main id="views"></main>
+  <footer class="foot">
+    注：内容依据「城市更新政策资金研究」文件夹内政策原文与研究报告提炼，截至 2026-06 国新办政策吹风会口径；其中《发改投资〔2025〕358号》解读与《财综〔2024〕15号》为扫描原件，已逐页识别核对。仅供内部研究参考。
+  </footer>
+</div>
+<script>
+
+
+/* ================= 数据 ================= */
+const CATS = [
+{
+  key:"central", name:"中央财政", color:"#c62828", icon:"🏛️", mini:"内部按分配机制分4类",
+  tag:"内部按“分配机制”进一步分为 4 类：切块投资补助 / 竞争性示范奖补 / 因素法转移支付 / 按项目专项补助",
+  fact:[
+    ["牵头部门","国家发展改革委 · 财政部 · 住房城乡建设部"],
+    ["2026规模","中央预算内投资·城市更新专项 970亿元"],
+    ["资金形式","投资补助 · 定额奖补 · 因素法转移支付"],
+    ["分配方式","按项目切块 / 竞争性评审 / 按任务量×绩效"]
+  ],
+  subtitle:"“中央财政”覆盖面最广、可用政策最多，本页将其内部按 <b>分配机制</b> 进一步归类，便于对照申报：同类机制的项目条件、申报节奏接近，可一并准备。",
+  groups:[
+    {g:"g1", idx:"一", name:"中央预算内投资", tag:"发展改革委主管 · 专项切块、按项目下达的投资补助（国家发改委年度投资盘子）"},
+    {g:"g2", idx:"二", name:"竞争性示范奖补", tag:"财政部会同相关部委 · 竞争性评审择优 · 定额补助分年拨付（示范/试点城市申报）"},
+    {g:"g3", idx:"三", name:"因素法转移支付", tag:"财政部主管 · 按任务量×绩效系数×财政困难系数分配 · 覆盖全国年度计划项目"},
+    {g:"g4", idx:"四", name:"按项目申报补助", tag:"财政部/住建部 · 各省限额申报 · 据专家审查意见分配下达"}
+  ],
+  policies:[
+    {
+      g:"g1", name:"城市更新中央预算内投资专项", num:"发改投资〔2025〕358号", amt:"2026年 970亿元", ic:"🏗️",
+      off:"国家发展改革委印发 · 2025年设立，2026年安排资金规模970亿元（发改委投资司吹风会口径）",
+      kw:["老旧小区·危旧房·城中村","公共空间·老旧街区厂区","燃气/排水/供水管网","8大方向·切块下达"],
+      rows:[
+        ["主管部门","国家发展改革委（发展改革系统牵头申报，会同住房城乡建设部）"],
+        ["支持范围","8大申报方向：①城镇老旧小区改造（含县城）②棚户区（城市危旧房）改造（含县城）③城中村改造（300万以上人口大城市）④城市公共空间改造利用（300万以上大城市）⑤老旧街区/厂区改造提升（重点300万以上大城市、老工业城市）⑥城市燃气供热老化管道及设施更新改造 ⑦排水防涝设施建设改造 ⑧供水管网漏损治理与老化更新。项目须纳入本地区《城市基础设施更新改造重点领域实施方案》或《城市地下管网管廊及设施建设改造实施方案》后申报"],
+        ["支持金额","以符合支持范围投资额为基数，按区域实行差异化补助（解读披露中部标准）：方向①②③中部70%、方向④⑤中部60%、方向⑥⑦⑧中部70%，均不含征地拆迁/异地安置费用。2026年安排资金规模 970亿元，惠及居民约800万户"],
+        ["资金支持特点","中央预算内投资（发改委渠道），专项切块下达、每省30个工作日内分解到具体项目；纳入国家重大建设项目库；与中央财政补助、超长期特别国债等避免交叉、不得重复申请；支持公益类项目"],
+        ["对项目要求","仅限计划新开工或续建且未完工项目；前期工作成熟、年内能开工；完成初设批复及用地/环评/用能等手续；中央资金当年支付率≥65%、当年投资完成率≥80%；不得用于已完工项目；管网类新建项目须2026年9月30日前开工；须同步制定投融资、运维、价费机制等“软建设”政策"]
+      ]
+    },
+    {
+      g:"g1", name:"燃气管道老化更新与保障性安居工程专项", num:"发改投资规〔2022〕910号", amt:"分档补助 30%—100%", ic:"🚰",
+      off:"国家发展改革委《城市燃气管道等老化更新改造和保障性安居工程中央预算内投资专项管理暂行办法》",
+      kw:["燃气管道老化改造","旧改·棚改·公租房·保租房","东30/中45/西·东北60%"],
+      rows:[
+        ["主管部门","国家发展改革委（中央预算内投资专项，发改系统牵头申报、按项目下达）"],
+        ["支持范围","①城市燃气管道等老化更新改造：建筑区划内居民庭院管道、立管、厂站设施、居民户内设施等；②保障性安居工程：城镇老旧小区改造、棚户区改造、公共租赁住房、保障性租赁住房及配套基础设施"],
+        ["支持金额","燃气管道与保障性安居工程均按区域分档补助：东部30%／中部45%／西部60%／东北60%；涉藏州县、南疆四地州等最高可至80%，西藏可达100%。保障性安居工程部分：老旧小区改造/棚户区/公租房补助不超过核定建安投资；含保租房及配套基础设施的政府投资项目≤项目总投资（不含征地拆迁）30%；企业投资项目或仅含配套基础设施项目≤配套投资（不含征地拆迁）50%"],
+        ["资金支持特点","中央预算内投资（发改系统切块、按项目下达）；与城市更新专项（〔2025〕358号）同属发改委中央预算内投资盘子，统一纳入项目库管理，不得对同一项目重复申报"],
+        ["对项目要求","仅限计划新开工或续建且未完工项目；不得新增地方政府隐性债务；超过6个月未开工或资金闲置一年以上的进行调整；纳入国家重大建设项目库管理"]
+      ]
+    },
+    {
+      g:"g2", name:"中央财政支持实施城市更新行动", num:"财办建〔2026〕14号", amt:"东≤8亿·中≤10亿·西≤12亿", ic:"🏙️",
+      off:"财政部办公厅、住房城乡建设部办公厅 · 2026-04-13印发（原文5月8日前申报）",
+      kw:["重点样板片区建设","城市更新机制建设","≤15城 · 3年分年拨付"],
+      rows:[
+        ["主管部门","财政部、住房城乡建设部（省级财政+住建择优推荐，国家竞争性评审）"],
+        ["支持范围","面向地级及以上城市，2026年评选≤15个城市，每省/兵团可推荐1个；支持2个方向：①城市更新重点样板片区建设（城市基础设施品质提升、完整社区与小区配套、历史文化街区/既有公建/公共空间活化利用、存量土地闲置房屋设施利用与消费型基础设施）②城市更新机制建设（项目储备生成机制、资金安排筹措与行业发展长效机制、用地保障与审批机制）"],
+        ["支持金额","中央财政按区域定额补助并分年拨付（3年）：东部每城市≤8亿元、中部每城市≤10亿元、西部每城市≤12亿元（直辖市按≤12亿元，源自财建〔2024〕139号口径）"],
+        ["资金支持特点","竞争性评审（省级推荐→书面评审按120%差额→现场答辩→集中公示）＋定额补助＋分年拨付；奖补结合；须统筹使用中央和地方资金，具体项目不得重复申请中央预算内投资、车购税、超长期特别国债等其他中央资金"],
+        ["对项目要求","建立组织领导与协调机制、制定三年行动方案，实施范围相对集中、主要位于老城区；地方财力满足、债务风险可控、不得新增政府隐性债务；2024年1月1日以来无住建领域重大生产安全事故/负面舆情；按编制大纲与绩效指标体系编制（含公众满意度≥90%）；入围城市报绩效目标表备案；依据《中央财政支持城市更新行动绩效评价办法》开展绩效评价"]
+      ],
+      note:"自2024年起连续3年累计支持50个重点城市先行先试（含北京、上海、沈阳、洛阳、乌鲁木齐、成都等），上海2024年已纳入。该行动资金来源即“城市管网及污水处理补助资金”（财建〔2021〕144号＋补充通知财建〔2024〕139号，2024年起新增支持实施城市更新行动方向）。"
+    },
+    {
+      g:"g2", name:"海绵城市建设示范补助", num:"财办建〔2021〕35号", amt:"9/10/11亿 · 县级7/8/9亿", ic:"🌧️",
+      off:"财政部办公厅、住房城乡建设部办公厅、水利部办公厅 · 2021-04-25（“十四五”期间竞争性选拔）",
+      kw:["系统化全域推进","示范城市分批选拔","与绩效挂钩拨付"],
+      rows:[
+        ["主管部门","财政部、住房城乡建设部、水利部（三部门竞争性选拔；住建、水利查任务，财政查资金）"],
+        ["支持范围","竞争性选拔示范城市（首批20个）；已获中央海绵建设试点资金城市原则上不再申报；每省每批最多推荐2个城市、累计获得支持≤4个；支持城市建成区范围内项目（供排水设施、雨水调蓄、蓄滞洪空间、绿地道路广场、城市内河湖生态修复、地下管网/管廊/管沟、雨洪行泄通道、排涝沟渠及管网排查监测，居住社区/老旧小区/完整社区海绵化）"],
+        ["支持金额","中央财政定额补助，分3年拨付到位：地级及以上城市 东部9亿元/中部10亿元/西部11亿元；县级市 东部7亿元/中部8亿元/西部9亿元"],
+        ["资金支持特点","两级选拔：“省级评审（≥80分第1档当年可推荐2城、60—79分第2档推荐1城、＜60分第3档当年不支持）＋基础性评审按120%差额＋竞争性评审（公开答辩、现场评分排名）”；绩效评价结果与资金拨付挂钩，进度明显滞后缓拨、扣减补助"],
+        ["对项目要求","落实海绵理念：新区目标导向、老区问题导向“干一片、成一片”；严禁“调水造景”“大树进城”等不环保不节约做法；示范城市每年报送任务落实等不少于1期"]
+      ]
+    },
+    {
+      g:"g3", name:"中央财政城镇保障性安居工程补助资金", num:"财综〔2024〕15号", amt:"80%任务量 + 20%绩效", ic:"🏠",
+      off:"财政部、住房城乡建设部印发 · 实施期限至2027年，期满评估是否延续",
+      kw:["住房保障/保租房","城中村改造","老旧小区改造","棚户区（危旧房）","因素法·转移支付"],
+      rows:[
+        ["主管部门","财政部（资金分配、监督、绩效）、住房城乡建设部（全国工程计划编制、提供年度数据）"],
+        ["支持范围","①住房保障：配租型保租房（公租房/保租房）筹集（含产权式、配售型）、租赁补贴（不得用于教育/医疗/商业/养老/托幼/文体等公共服务及经营性设施）②城中村改造：征收补偿、安置住房建设（购买）、安置小区配套、完善水电气及房屋安全消防（不得用于安置住房之外的房地产开发）③城镇老旧小区改造：小区内水电气暖配套与公共服务设施、屋面公共区域修缮、建筑节能、有条件加装电梯 ④棚户区（城市危旧房）改造：城市（含县城）建成区C/D级危房、国企破产改制/“三供一业”移交的非成套住房的征收补偿、安置房建设，及新购改（扩/翻建）、原址重建、抗震加固"],
+        ["支持金额","“奖补结合”＋因素法＋财政困难程度系数调节：80%按任务量、20%作为奖励资金按绩效。分项：住房保障按配租型/配售型套数、租赁补贴户数×系数×权重；城中村改造按“拆除新建因素×50%＋筹集安置住房套数×50%”和整治提升户数；老旧小区改造按“改造面积40%＋改造户数40%＋改造楼栋数10%＋改造小区个数10%”；棚户区（危旧房）按改造套数。绩效调节权重：住房保障50%、城中村20%、老旧小区20%、棚户区10%（旧改停止后住房保障/城中村调为60%/30%）；奖励资金仅绩效≥80分省份参与"],
+        ["资金支持特点","中央对地方转移支付（奖补结合、因素法、财政困难程度系数）；可按投资补助、项目资本金注入、贷款贴息方式使用；全国人大批准中央预算后30日内下达省级并抄送监管局，每年10月31日前提前下达下一年度预计数；省级/市县30日内逐级分解到项目；专款专用、分账核算、封闭运行；与发展改革委安排预算内投资统筹协调，项目不重复"],
+        ["对项目要求","纳入住房城乡建设部年度保障性安居工程计划（任务量、套数/面积/户数由其提供）；项目成熟度与财政承受能力科学排序、按进度拨款，避免“钱等项目”；推进困难致资金闲置一年及以上则按规定调整统筹；不得用于平衡预算、偿还债务本息；严禁从补助资金中提取工作/管理经费；“谁使用、谁负责”，开展绩效评价"]
+      ]
+    },
+    {
+      g:"g4", name:"国家级风景名胜区和历史文化名城保护补助", num:"财建〔2009〕195号", amt:"按项目分配 · 无名额定额", ic:"🏯",
+      off:"财政部印发 · 2009-05-04（现行沿用）",
+      kw:["历史文化街区保护","历史建筑修缮","风景区保护整治","省级限额申报"],
+      rows:[
+        ["主管部门","财政部（预算审核下达）、住房城乡建设部（组织专家审查、编制分配方案）；地方建设行政主管部门监督实施、组织验收"],
+        ["支持范围","①国家级风景名胜区保护：规划编制、世界遗产保护整治与申报、景区绿化/林木植被/古树名木保护、古迹维修、休息场所与安全措施修建、道路/路灯/环卫/导游标志/防灾避险等公共设施维护建设 ②历史文化名城保护：历史文化街区保护规划编制、历史文化街区核心保护范围内历史建筑修缮"],
+        ["支持金额","未设定额/比例/上限，采取按项目申报、据专家审查意见分配下达"],
+        ["资金支持特点","按项目分配（非因素法/定额示范）；申报附项目批准文件，省级财政会同建设部门审核汇总后报财政部/住建部；资金按国库集中支付，须与地方预算内资金及其他资金配套综合使用；专款专用"],
+        ["对项目要求","名额限制：风景名胜区项目每省每年原则上≤2个（国家级风景名胜区达10处以上省份≤3个），历史文化名城项目每省每年≤1个；名城规划编制须街区已在名城保护规划中划定并经省政府公布、附依法批准的保护规划；历史建筑修缮须具资质单位设计＋县级以上城乡规划部门组织专家审查；每年5月底前报财政部/住建部，次年1月底前上报上年度资金使用情况"]
+      ]
+    }
+  ]
+},
+{
+  key:"ustb", name:"超长期特别国债", color:"#b7791f", icon:"🛡️", mini:"“两重”“两新”双专项",
+  tag:"“两重”“两新”建设 · 中央财政性资金，重点投向城市地下管网、老旧小区改造等",
+  fact:[
+    ["主管部门","国家发展改革委（“两重”）、财政部（资金）"],
+    ["2026规模","支持城市地下管网建设改造 1600亿元（较上年+250亿元）"],
+    ["资金形式","超长期国债资金，直达项目"],
+    ["组合特点","年限长、成本低；可与其他渠道组合（金融工具除外）"]
+  ],
+  subtitle:"中办、国办《关于持续推进城市更新行动的意见》明确“通过超长期特别国债对符合条件的项目给予支持”。《城市更新“十五五”规划》在“两重”建设中继续安排超长期特别国债资金，重点支持地下管网、老旧小区改造等。",
+  policies:[
+    {
+      name:"“两重”建设 · 城市地下管网与城市更新", num:"“十五五”规划吹风会口径", amt:"1600亿元（2026）", ic:"🕳️",
+      off:"国家发展改革委、财政部、住房城乡建设部 2026-06-08 国新办政策例行吹风会",
+      kw:["城市地下管网（燃气/排水/供水/供热）","老旧小区·危旧房优先","“先体检、后更新”","2026年内形成实物工作量"],
+      rows:[
+        ["主管部门","国家发展改革委（“两重”建设牵头，会同住建部）、财政部（资金安排）"],
+        ["支持范围","城市地下管网建设改造：燃气、排水、供水、供热等地下管网（含市政管线与综合管廊）；城镇老旧小区改造、城市危旧房改造等公共安全和民生保障类（优先支持），老旧街区（厂区）改造提升等发展类（统筹支持）。“十五五”期间计划建设改造城市地下管网约77万公里：燃气20万、排水17.5万、供水17.5万、污水10万、供热12万公里"],
+        ["支持金额","2026年安排超长期特别国债资金支持城市地下管网建设改造 1600亿元，比上一年增加250亿元（即2025年约1350亿元）；资金按“两重”项目清单、分季下达"],
+        ["资金支持特点","超长期特别国债（“两重”建设，中央资金直达地区/项目）；坚持“统筹规划、突出重点”“先急后缓、分步实施”；聚焦“硬投资”；配套要求“先体检、后更新”，建立专项规划—片区策划—项目实施方案体系"],
+        ["对项目要求","纳入“两重”/超长期国债项目清单；项目成熟、2026年内形成实物工作量；优先支持公共安全与民生保障类，兼顾发展类；围绕投融资、运维、价费机制配套；加强全链条监管、防范形式主义"]
+      ]
+    },
+    {
+      name:"“两新” · 大规模设备更新与消费品以旧换新（2026延续）", num:"发改环资〔2025〕1745号", amt:"央地9:1 · 中央85/90/95%", ic:"♻️",
+      off:"国家发展改革委、财政部 · 2025-12-29印发（2026财政年度）",
+      kw:["新增老旧小区加装电梯","住宅老旧电梯更新","资源循环利用项目","未用额度收回中央"],
+      rows:[
+        ["主管部门","国家发展改革委（会同各部委安排设备更新资金）、财政部（向地方安排资金）"],
+        ["支持范围","与城市更新相关：新增“老旧小区加装电梯”纳入设备更新支持范围、住宅老旧电梯（保留）、节能降碳环保领域设备更新、高水平资源循环利用项目；消费品以旧换新（汽车报废/置换更新、家电、数码智能产品、智能家居/适老化产品）"],
+        ["支持金额","设备更新：国家发改委同各部委安排超长期特别国债资金，用于相关领域项目（未披露总规模）；消费品以旧换新：直接向地方安排超长期特别国债资金，按9:1央地共担，中央承担比例东/中/西85%/90%/95%（汽车报废更新新能源补车价12%上限2万元、燃油补10%上限1.5万元等）"],
+        ["资金支持特点","“两新”政策（2026年延续），中央资金直补直达、按季分批次下达；截至2026年12月31日未用完的中央资金额度收回中央；支持中小企业，放宽投资额门槛"],
+        ["对项目要求","设备更新：淘汰设备的综合折旧年限、技术指标、最低使用年限为硬性条件；纳入“两新”项目清单；省级政府为第一责任主体，全链条监管（线上监控预警＋线下实地核查）；资金使用合规、2026年内形成实物工作量"]
+      ]
+    }
+  ]
+},
+{
+  key:"bond", name:"地方政府专项债券", color:"#1f6fb2", icon:"📊", mini:"负面清单+资本金上限30%",
+  tag:"国办发〔2024〕52号 · 负面清单＋正面清单管理、自审自发试点",
+  fact:[
+    ["主管部门","财政部（资金/额度/监管）、国家发展改革委（项目把关）"],
+    ["资本金上限","可用作项目资本金规模上限由25%提至30%"],
+    ["自审自发","试点10省+雄安新区（含上海）"],
+    ["债券期限","原则上≤5年，试点区域可延至7—10年"]
+  ],
+  subtitle:"专项债券投向领域实行“负面清单”管理，未纳入负面清单的项目均可申请；同时以“正面清单”扩大用作项目资本金的范围（含“城市更新”专项）。城市更新直接相关投向：城镇老旧小区改造、棚户区改造、城中村改造、老旧街区改造、老旧厂区改造，城市公共空间功能提升及其他城市更新基础设施建设；亦可用于土地储备、收购存量商品房用作保障性住房。",
+  policies:[
+    {
+      name:"优化完善地方政府专项债券管理机制的意见", num:"国办发〔2024〕52号", amt:"资本金上限 30%（+5pct）", ic:"📈",
+      off:"国务院办公厅 · 2024-12-22印发（此件公开发布）",
+      kw:["投向负面清单管理","城市更新可作资本金","自审自发10省+雄安","一案两书·穿透监管"],
+      rows:[
+        ["主管部门","国务院办公厅印发；地方落实中：财政系统牵头管资金、发展改革系统牵头管项目；财政部、国家发展改革委负责统筹协调、政策指导与监管"],
+        ["支持范围","投向领域“负面清单”管理：完全无收益项目、楼堂馆所、形象工程和政绩工程、除保障性住房和土地储备以外的房地产开发、主题公园/仿古城（镇村街）等商业设施、一般竞争性产业项目为禁止类；未纳入负面清单项目均可申请。与城市更新直接相关投向：城镇老旧小区改造、棚户区改造、城中村改造、老旧街区改造、老旧厂区改造，城市公共空间功能提升及其他城市更新基础设施建设；允许用于土地储备（回收闲置存量土地、新增土地储备）、收购存量商品房用作保障房"],
+        ["支持金额","用作项目资本金实行“正面清单”管理，含“城市更新”专项（上述投向）及城市停车场、天然气管网和储气设施、供排水、供热、供气、城镇污水垃圾收集处理、资源循环利用等；以省份为单位，可用作项目资本金的专项债券规模上限由该省用于项目建设专项债券规模的25%提高至30%（实务口径：发行规模≤项目预期土地出让收入、且预期土地出让收入≥应还款总额120%；土地储备类：收大于支≤土地储备成本、收不抵支≤预期土地出让收入、无预期收入项目由财政资金保障）"],
+        ["资金支持特点","政府专项债券（有收益的公益性项目、项目融资收益自求平衡）；额度分配正向激励，向项目准备充分、投资效率高、资金效益好的地区倾斜；“自审自发”试点（北京、上海、江苏、浙江、安徽、福建、山东、湖南、广东、四川等10省＋河北雄安新区）项目清单经省级政府审核后即可组织发行、不再报国家发改委/财政部审核，同步备案；非试点省实行在建项目续发“绿色通道”与“常态化申报、按季度审核”；专户管理、专款专用、穿透式监管"],
+        ["对项目要求","项目须有一定收益、能覆盖本息、融资收益平衡；纳入专项债项目清单与信息系统；落实“一案两书”（实施方案＋财务报告＋法律意见书）标准化；不得用于经常性支出、工资养老金、单位运行经费、债务利息；严禁新增地方政府隐性债务；建立偿债备付金制度；开展绩效评价与审计监督、专项债纳入党政领导干部经济责任审计"]
+      ]
+    }
+  ]
+},
+{
+  key:"policyfin", name:"新型政策性金融工具", color:"#2e7d32", icon:"🧭", mini:"2025年中央新创设",
+  tag:"2025年中央创设 · 三家政策性银行以“股东借款”投放项目资本金",
+  fact:[
+    ["主管部门","市发改委牵头，国开行/农发行/进出口银行评审投放"],
+    ["2025投放","全国累计6500亿元（国开行上海分行274.5亿元）"],
+    ["支持资金","不超过最低资本金比例50%（重点领域可提至80%）"],
+    ["期限","最长20年，可直接作项目资本金"]
+  ],
+  subtitle:"2025年4月25日中央政治局提出创设的新型政策性金融工具，属“政策性开发性金融工具”。投向5大领域19个专项（数字经济、人工智能、低空经济、民生消费、其他），其中“其他”大类明确纳入“城市地下管网改造、城市更新”。创新点在于直接作为项目资本金投放、与专项债等拼盘运用（不可与超长期特别国债拼盘）。",
+  policies:[
+    {
+      name:"新型政策性金融工具（城市更新/地下管网方向）", num:"2025年创设 · 参考宣介材料", amt:"2025年全国6500亿元", ic:"🏦",
+      off:"中央政治局2025-04-25提出；上海市发展改革委牵头组织，国开行上海分行落地“首单”",
+      kw:["直接投放项目资本金","股东借款·基金公司委托","可与专项债拼盘","≤最低资本金50%（重点80%）"],
+      rows:[
+        ["主管部门","市发展改革委牵头，具体由三家政策性银行（国家开发银行、农业发展银行、进出口银行）评审并投放；国家发展改革委审核推送项目清单"],
+        ["支持范围","城市地下管网管廊建设改造及其他城市更新：燃气、排水、供水、供热管网及设施（含智能化改造）、经济集约型综合管廊；城镇老旧小区改造、棚户区改造、城中村改造、完整社区建设、市政设施安全改造、老旧厂区改造、老旧街区改造、老旧火车站周边街区更新改造、低效轨道交通站点与周边一体化改造、城市停车场；另覆盖数字经济/人工智能/低空经济/民生消费等19个专项"],
+        ["支持金额","支持资金不超过行业规定最低项目资本金比例的50%（重点领域或行业可提升至80%）；按单个项目最低资本金20%测算，约可覆盖项目总投资的10%；综合资金来源，单个项目地方政府/项目单位出资比例不低于总投资5%；2025年全国累计投放6500亿元"],
+        ["资金支持特点","政策性强（党中央决策创设）；创新性强（直接作为项目资本金投放，通过“基金公司委托国开行以股东借款形式向项目公司股东提供资金、贷款作为资本金投入项目”）；优惠度大（融资成本低于银行贷款自律底线，另有中央财政贴息）；灵活性强（可作为项目投资资金来源之一，与专项债等其他拼盘运用，仅不可与超长期特别国债拼盘）；期限宽松（最长20年，与项目投资回报周期匹配）"],
+        ["对项目要求","行政审批手续完备（至少完成立项）；原则上属当年新开工或在建项目、在建项目进度比例≤80%；需在年内实现基金投放并形成实物工作量；项目为可产生一定收益的公益性或经营性项目。负面清单：不支持土地储备、不支持商业房地产项目、不触碰地方隐性债务、不支持楼堂馆所和“两高一低”、不能用于弥补地方财政收支缺口、不能置换已到位的项目资本金"],
+        ["申报流程（上海）","区发改委/市政府条线部门征集备选项目并明确意向银行→市发改委组织内部专业处室按投向、成熟度、资质筛选，商银行形成上报清单→国家发改委审核后推送至国开行总行和省级发改委→银行分支机构尽调评审、履行审议流程后投放"]
+      ],
+      note:"“城中村改造专项借款”（建保〔2023〕80号）同属政策性金融渠道：支持列入城中村改造年度计划项目，用于前期工作、征收补偿安置、安置住房及配套基础设施，支持比例约项目投资80%（自有资本金≥20%），以改造后净地土地出让收入优先还款，融资周期一般≤5年。<b>当前国家已不再组织第三批专项借款申报。</b>"
+    }
+  ]
+},
+{
+  key:"loan", name:"长周期贷款", color:"#6a4fa3", icon:"🪙", mini:"统一监管新规（2026年8月）",
+  tag:"金规〔2026〕7号《城市更新项目贷款管理办法（试行）》",
+  fact:[
+    ["主管部门","国家金融监督管理总局（监管）、住房城乡建设部"],
+    ["贷款期限","研究报告口径：政策性银行原则≤30年，特殊经审批可延至35年"],
+    ["资本金","自有资本比例不低于20%"],
+    ["特点","市场化贷款 · 专款专用 · 封闭管理"]
+  ],
+  subtitle:"金融监管总局、住建部2026年8月印发《城市更新项目贷款管理办法（试行）》，为商业银行及政策性银行开展城市更新项目贷款提供统一监管框架；叠加《意见》提出的发挥政策性银行作用、提供长周期贷款。",
+  policies:[
+    {
+      name:"城市更新项目贷款管理办法（试行）", num:"金规〔2026〕7号", amt:"≤30年（特殊可延35年）", ic:"🏧",
+      off:"国家金融监督管理总局、住房城乡建设部 · 2026-08-31印发（上海金融门户转载，自印发之日起施行，新签借款合同项目适用）",
+      kw:["市场化·商业可持续","资金监管专户封闭运行","大额项目银团贷款","严禁政府隐性增信"],
+      rows:[
+        ["主管部门","国家金融监督管理总局（监管）、住房城乡建设部；贷款人＝商业银行、农村合作银行、农村信用合作社等吸收公众存款的金融机构；国家开发银行、农业发展银行在国务院批准业务范围内提供信贷支持（不得偏离主责主业、超范围经营）"],
+        ["支持范围","发放用于支持符合《中办国办关于持续推进城市更新行动的意见》要求的城市更新项目开发、建设、改造等用途的贷款；覆盖构建房地产发展新模式与高质量推进城市更新"],
+        ["支持金额","未设固定额度上限，由贷款人按项目实际融资需求与可用还本付息现金流合理确定；贷款金额较大的项目原则上通过银团贷款提供融资支持、严防过度授信；须符合国家资本金制度（研究报告口径：自有资本比例不低于20%）；贷款期限与利率由贷款人据项目建设运营周期、还款来源、资金成本确定（研究报告口径：政策性银行长周期融资原则上≤30年，特殊情况经审批可延长至35年）"],
+        ["资金支持特点","市场化、法治化原则（依法合规、商业可持续，自主决策、自担风险、自负盈亏）；专款专用、封闭运行（项目资本金、贷款发放支付支用、项目收入、偿还均通过资金监管账户，项目独立运作、项目间资金不得混同）；可按经营权/收费权产生的应收账款设置担保，综合运用资金监管、资金归集；可设计综合金融服务方案、组合运用融资工具，鼓励多元化融资；严禁新增地方政府隐性债务，不得接受任何形式政府隐性增信"],
+        ["对项目要求","符合国家产业/土地/环保政策与固定资产投资等要求，行政审批文件合法、完整、真实、有效；符合城市更新规定（据城市体检评估结果）、纳入城市更新规划、符合国土空间规划及专项规划；纳入城市更新项目库；符合资本金制度；已明确实施主体、编项目实施方案及可行性研究报告；满足项目整体性特征；具备充足经营性收入覆盖贷款本息；借款人为市场化运营主体、良好财务信用。资金不得用于缴纳土地出让金及相关税款、净地供应前土地征收拆迁安置补偿等前期环节、应由财政资金支出保障的事项；不得利用政府应付账款/无收益公益性资产/不合规经营性资产抵质押融资"]
+      ]
+    }
+  ]
+}
+];
+
+/* 对比矩阵 */
+const MATRIX = [
+  {key:"central", name:"中央财政", short:"①切块投资：预算内城市更新专项2026年970亿；②示范奖补：14号文东≤8/中≤10/西≤12亿（≤15城）、海绵9/10/11亿；③因素法：保障性安居80%任务量+20%绩效；④按项目：名城保护",
+   cells:[["主管部门","国家发展改革委、财政部、住房城乡建设部"],
+    ["支持范围","中央预算内8大方向：旧改/危旧房/城中村/公共空间/老旧街区厂区/燃气供热老化管道/排水防涝/供水漏损治理；城市更新行动样板片区＋机制建设；保障性安居工程（住房保障/城中村改造/旧改/棚改危房）；海绵城市示范；历史文化名城"],
+    ["支持金额","中央预算内投资城市更新专项2026年970亿元；城市更新行动定额补助东≤8/中≤10/西≤12亿（直辖市≤12亿）；住房保障补助因素法（80%按任务量+20%奖励）；海绵示范东9/中10/西11亿（县级市7/8/9亿）；名城按项目分配"],
+    ["资金特点","投资补助、项目资本金注入、贷款贴息、定额奖补、因素法转移支付；竞争性评审＋分年拨付；与中央预算内投资、车购税、超长期国债避免交叉"],
+    ["对项目要求","成熟、年内开工、前期手续齐备；纳入项目库/建设库；不得重复申请、不得新增隐性债务；绩效评价（城市更新行动满意度≥90%）；保障性安居资金不得用于平衡预算/偿还债务本息"]]
+  },
+  {key:"ustb", name:"超长期特别国债", short:"2026年支持地下管网建设改造1600亿元（较上年+250亿）；老旧小区/危旧房优先；“两新”设备更新（加装电梯）+消费品以旧换新央地9:1",
+   cells:[["主管部门","国家发展改革委（“两重”）、财政部（资金）"],
+    ["支持范围","城市地下管网（燃气/排水/供水/供热等）建设改造；老旧小区/危旧房改造（优先民生安全类）；老旧街区厂区改造提升（发展类）；大规模设备更新（老旧小区加装电梯/市政设备）与消费品以旧换新"],
+    ["支持金额","2026年支持地下管网建设改造1600亿元（较上年+250亿元）；设备更新以旧换新“两新”资金按项目/按季下达（未披露总规模）；消费品央地共担9:1、中央85/90/95%"],
+    ["资金特点","超长期国债（“两重”“两新”）中央资金直达、按季分批下达、需形成实物工作量；聚焦“硬投资”；可与专项债、金融工具等组合（金融工具明确不可与国债拼盘）"],
+    ["对项目要求","纳入清单、项目成熟、2026年内形成实物工作量；设备更新：淘汰设备最低使用年限/技术指标/折旧年限为硬性条件；省级政府为第一责任主体、全链条监管；2026-12-31未用资金收回中央"]]
+  },
+  {key:"bond", name:"地方政府专项债券", short:"投向负面清单管理；资本金正面清单含城市更新、上限提至30%；自审自发10省+雄安（含上海）；期限原则≤5年可延7-10年",
+   cells:[["主管部门","财政部（资金/额度/监管）、国家发展改革委（项目把关）"],
+    ["支持范围","投向“负面清单”（无收益、楼堂馆所、形象工程、除保障房和土地储备外房地产、主题公园仿古城等）；城市更新相关：旧改/棚改/城中村/老旧街区/老旧厂区改造、城市公共空间及城市更新基础设施建设；土地储备、收购存量商品房用作保障房"],
+    ["支持金额","用作项目资本金范围扩至“城市更新”等（正面清单）；以省为单位，可用作资本金上限由25%提至30%；债券发行≤预期土地出让收入且预期收入≥应还款总额120%（土地储备类分情处理）；期限原则≤5年、试点区域可延至7-10年"],
+    ["资金特点","政府专项债（有收益、融资收益自平衡）；额度分配正向激励；“自审自发”试点（10省+雄安，含上海）省级审核后即发行；非试点省绿色通道＋常态化申报按季度审核；专户管理、穿透式监管"],
+    ["对项目要求","项目须有一定收益、覆盖本息、融资收益平衡；纳入项目清单与信息系统；“一案两书”标准化；不得用于经常性支出、工资养老金、运行经费、债务利息；严禁新增隐性债务；偿债备付金、绩效与审计"]]
+  },
+  {key:"policyfin", name:"新型政策性金融工具", short:"2025年创设；国开行等以“股东借款”直接投项目资本金；2025年全国6500亿元；可与专项债拼盘、禁与超长期国债拼盘",
+   cells:[["主管部门","市发展改革委牵头；国家开发银行/农业发展银行/进出口银行评审投放；国家发展改革委推送清单"],
+    ["支持范围","“其他”大类含城市地下管网改造、城市更新：燃气/排水/供水/供热管网及设施（智能化）、综合管廊、老旧小区/棚户区/城中村、完整社区、市政安全改造、老旧厂区街区、老旧火车站周边、低效轨交站点一体化、城市停车场；另覆盖数字经济/人工智能/低空经济/民生消费等19专项"],
+    ["支持金额","支持资金≤最低资本金比例50%（重点领域可提至80%）；按最低资本金20%测算约覆盖总投资10%；地方政府/项目单位出资≥5%；2025年全国投放6500亿元（国开行上海分行274.5亿元）"],
+    ["资金特点","政策性（党中央决策创设）；直接作为项目资本金投放（基金公司委托国开行以股东借款）；融资成本低于自律底线或有中央财政贴息；可与专项债拼盘（不可与超长期国债拼盘）；期限最长20年"],
+    ["对项目要求","行政审批手续完备（至少立项）、当年新开工或在建（在建进度≤80%）、年内投放并形成实物工作量；可产生一定收益的公益/经营性项目；负面清单：不得用于土地储备、商业房地产、楼堂馆所、“两高一低”、弥补财政缺口、置换已到位资本金，不触碰隐性债务"]]
+  },
+  {key:"loan", name:"长周期贷款", short:"金规〔2026〕7号统一监管；市场化贷款、专户封闭运行；大额走银团；政策性银行≤30年（特殊可延35年）",
+   cells:[["主管部门","国家金融监督管理总局（监管）、住房城乡建设部；商业银行/农商行/农信社等为贷款人；国开行/农发行在国务院批准业务范围内开展"],
+    ["支持范围","符合《意见》要求的城市更新项目开发、建设、改造贷款；全国统一监管框架；政策性银行提供长周期贷款"],
+    ["支持金额","未设固定上限，按项目实际融资需求与还本付息现金流确定；大额项目原则银团贷款、严防过度授信；符合资本金制度（自有资本≥20%）；期限按建设运营周期确定（研究报告：政策性银行原则≤30年、特殊经审批延至35年）"],
+    ["资金特点","市场化、法治化、商业可持续（自主决策、自担风险、自负盈亏）；专款专用、封闭监管（资金监管账户、项目独立运作）；按经营权/收费权应收账款担保；组合运用融资工具、鼓励多元化融资；禁止政府隐性增信"],
+    ["对项目要求","符合产业/土地/环保政策与固投要求、审批文件合法完整真实有效；符合城市更新规定、纳入城市更新规划与国土空间规划、纳入城市更新项目库；符合资本金制度；明确实施主体＋实施方案＋可行性研究报告；满足整体性、有充足经营性收入覆盖本息；市场化运营主体、财务信用良好；不得用于缴纳土地出让金及税款、净地前征收拆迁前期环节、应由财政保障事项"]]
+  }
+];
+
+/* 资金直达路径示意 */
+const ROUTES = [
+  {key:"central", label:"中央财政", nodes:["中央预算 / 转移支付","省级发改·财政","市县项目单位","具体项目"]},
+  {key:"ustb", label:"超长期特别国债", nodes:["中央国债资金池","“两重”“两新”项目清单","直达项目（当年形成实物工作量）"]},
+  {key:"bond", label:"地方政府专项债券", nodes:["省级政府组织发行","专户管理·穿透监管","有收益项目（融资自求平衡）"]},
+  {key:"policyfin", label:"新型政策性金融工具", nodes:["政策性银行“股东借款”","项目公司（作资本金）","更新项目（可与专项债拼盘）"]},
+  {key:"loan", label:"长周期贷款", nodes:["银行市场化评审","项目资金监管专户","城市更新项目（封闭运行）"]}
+];
+// ===== 渲染逻辑：少点击、图形化、详情默认展开 =====
+const CH = {}; CATS.forEach(c => CH[c.key] = c);
+
+/* ---------- 基础工具 ---------- */
+const esc = s => String(s == null ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// 允许原文中少数 <b>…</b> 强调标签
+function h(s) {
+  return esc(s)
+    .replace(/&lt;b&gt;/gi, '<b>').replace(/&lt;\/b&gt;/gi, '</b>')
+    .replace(/&lt;i&gt;/gi, '<i>').replace(/&lt;\/i&gt;/gi, '</i>');
+}
+function esc2br(s) { return h(s).replace(/\n+/g, '<br/>'); }
+const a = (hex, aa) => String(hex) + aa; // #rrggbb + 2位透明度
+
+/* ---------- 五维元信息 ---------- */
+function dm(label) {
+  const L = String(label || '');
+  if (L.indexOf('主管') > -1) return { k: 'dept', n: '主管部门', ic: '🏛️' };
+  if (L.indexOf('范围') > -1) return { k: 'scope', n: '支持范围', ic: '🎯' };
+  if (L.indexOf('金额') > -1 || L.indexOf('标准') > -1) return { k: 'amt', n: '支持金额与标准', ic: '💰' };
+  if (L.indexOf('特点') > -1) return { k: 'feat', n: '资金支持特点', ic: '🧭' };
+  if (L.indexOf('要求') > -1) return { k: 'req', n: '对项目要求', ic: '📋' };
+  if (L.indexOf('流程') > -1) return { k: 'opt', n: '申报流程', ic: '📌' };
+  return { k: 'opt', n: '其他要点', ic: '📄' };
+}
+
+/* ---------- 总览 KPI ---------- */
+const KPI = [
+  { key: 'central', num: '970亿元', cap: '2026年中央预算内投资·城市更新专项规模（另有城市更新行动定额奖补：东部≤8亿 / 中部≤10亿 / 西部≤12亿，直辖市≤12亿）' },
+  { key: 'ustb', num: '1600亿元', cap: '2026年超长期特别国债支持城市地下管网建设改造（较上年 +250亿元）' },
+  { key: 'bond', num: '30%', cap: '专项债券用作项目资本金的规模上限比例（由25%提高，含“城市更新”正面清单）' },
+  { key: 'policyfin', num: '6500亿元', cap: '2025年全国累计投放（直接作项目资本金，最长20年）' },
+  { key: 'loan', num: '≤30年', cap: '城市更新项目贷款期限（政策性银行，特殊经审批可延至35年）' }
+];
+
+/* ---------- 总览 hub SVG ---------- */
+function hubSVG() {
+  const cx = 350, cy = 168, R = 128, N = 5;
+  const pts = CATS.map((c, i) => {
+    const rad = (-90 + i * (360 / N)) * Math.PI / 180;
+    return { c, x: cx + R * Math.cos(rad), y: cy + R * Math.sin(rad) };
+  });
+  const lines = pts.map(p =>
+    `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="${p.c.color}" stroke-opacity=".30" stroke-width="2.5"/>`
+  ).join('');
+  const nodes = pts.map(p => {
+    const c = p.c;
+    const mini = String(c.mini || '').replace(/<[^>]*>/g, '');
+    const sm = mini.length > 10 ? mini.slice(0, 10) + '…' : mini;
+    return `<g>
+      <rect x="${p.x - 78}" y="${p.y - 27}" width="156" height="54" rx="15" fill="#ffffff" stroke="${c.color}" stroke-width="1.6"/>
+      <text x="${p.x - 66}" y="${p.y + 8}" font-size="23" text-anchor="middle">${c.icon}</text>
+      <text x="${p.x - 40}" y="${p.y + 2}" font-size="13.5" font-weight="800" fill="#2a3350">${esc(c.name)}</text>
+      <text x="${p.x - 40}" y="${p.y + 18}" font-size="10" fill="#7b8498">${esc(sm)}</text>
+    </g>`;
+  }).join('');
+  const city = `<circle cx="${cx}" cy="${cy}" r="38" fill="#ffffff" stroke="#c6d0e4" stroke-width="1.6"/>
+    <text x="${cx}" y="${cy + 12}" font-size="28" text-anchor="middle">🏙️</text>
+    <text x="${cx}" y="${cy - 52}" font-size="11.5" font-weight="800" fill="#4a5f8f" text-anchor="middle" letter-spacing="1">城市更新 · 具体项目</text>`;
+  return `<svg viewBox="0 0 700 336" role="img" aria-label="五渠汇流示意"><g>${lines}${nodes}${city}</g></svg>`;
+}
+
+/* ---------- 总览 ---------- */
+function buildOverview() {
+  const kpis = KPI.map(o => {
+    const c = CH[o.key];
+    return `<div class="kpi" style="--cc:${c.color}"><span class="ic">${c.icon}</span>
+      <span class="nm">${esc(c.name)}</span><span class="num">${o.num}</span><span class="cap">${esc(o.cap)}</span></div>`;
+  }).join('');
+  const legend = CATS.map(c =>
+    `<div class="lrow"><i style="background:${c.color}"></i><div><b>${c.icon} ${esc(c.name)}</b><p>${h(c.tag || '')}</p></div></div>`
+  ).join('');
+  return `<div class="kpis">${kpis}</div>
+  <div class="ovgrid">
+    <div class="card">
+      <h4>🗺️ 五渠汇流 · 终归项目</h4>
+      <div class="hubwrap">${hubSVG()}</div>
+      <div class="tip">五类资金最终都落到「具体项目」。点页面顶部的渠道标签即可切换查看；每份政策要点<b>已默认展开</b>，无需再逐张点击。想知道「我的项目能匹配哪些资金」，点顶部 <b>📍 项目申报指引</b> 填表即可。</div>
+    </div>
+    <div class="card">
+      <h4>🧭 渠道一句话</h4>
+      <div class="legend">${legend}</div>
+      <div class="tip">点顶部「🗂️ 横向对比」，可一次看全五类资金在五个维度上的异同，便于组合申报。</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- 资金直达路径 ---------- */
+function flowHTML(k, color) {
+  const r = ROUTES.find(x => x.key === k);
+  const nodes = (r && r.nodes) || [];
+  if (!nodes.length) return '';
+  const items = nodes.map((n, i) => {
+    const last = i === nodes.length - 1;
+    const st = last ? ` style="background:${color};border-color:${color}"` : '';
+    return `<div class="fnode${last ? ' fin' : ''}"${st}>${h(n)}</div>`;
+  }).join('<span class="farr">→</span>');
+  return `<div class="flowcap">💧 资金直达路径</div><div class="flow">${items}</div>`;
+}
+
+/* ---------- 政策卡（默认全展开） ---------- */
+function cardHTML(p, color) {
+  const kws = (p.kw && p.kw.length)
+    ? `<div class="kws">${p.kw.map(k => `<span class="kw" style="color:${color};background:${a(color, '0e')}">${h(k)}</span>`).join('')}</div>`
+    : '';
+  const cells = (p.rows || []).map(r => {
+    const m = dm(r[0]);
+    return `<div class="dim d-${m.k}"><div class="dh"><span class="i2">${m.ic}</span>${m.n}</div>
+      <div class="dc">${esc2br(r[1])}</div></div>`;
+  }).join('');
+  const amt = p.amt
+    ? `<div class="pamt" style="background:${a(color, '0b')};border:1px solid ${a(color, '30')}">
+        <span class="lbl">资金规模 · 标准</span>
+        <span class="big" style="color:${color}">${h(p.amt)}</span>
+       </div>`
+    : '';
+  const note = p.note
+    ? `<div class="pnote" style="--cc:${color}"><span class="lb">📎 补充说明</span><br/>${h(p.note)}</div>`
+    : '';
+  return `<section class="pc"><div class="pch">
+      <div class="pico" style="background:${a(color, '10')}">${p.ic || '📄'}</div>
+      <div class="ptxt"><h3>${h(p.name)}</h3>${p.num ? `<span class="num">${h(p.num)}</span>` : ''}
+        <p class="off">${h(p.off || '')}</p>${kws}</div>
+      ${amt}
+    </div>
+    <div class="rows">${cells}</div>${note}</section>`;
+}
+
+/* ---------- 渠道页 ---------- */
+function buildChannel(k) {
+  const c = CH[k];
+  const facts = c.fact.map(f =>
+    `<div class="fact"><span class="fk">${esc(f[0])}</span><span class="fv">${h(f[1])}</span></div>`
+  ).join('');
+  const band = `<header class="cband" style="--cc:${c.color}">
+    <div class="cbicon" style="background:${a(c.color, '10')}">${c.icon}</div>
+    <div class="cbt"><h2>${esc(c.name)}</h2><p class="ctag">${h(c.tag || '')}</p></div>
+    ${c.mini ? `<div class="cbmini" style="border:1px solid ${a(c.color, '35')};color:${c.color}">${esc(c.mini)}</div>` : ''}
+  </header>`;
+  const sub = c.subtitle ? `<div class="csub">${h(c.subtitle)}</div>` : '';
+  let body;
+  if (c.groups && c.groups.length) {
+    body = c.groups.map(g => {
+      const pols = (c.policies || []).filter(p => p.g === g.g);
+      if (!pols.length) return '';
+      return `<div class="grib" style="--cc:${c.color}"><span class="gb">${esc(g.idx || '·')}</span>
+        <div class="gtx"><b>${h(g.name)}</b>${g.tag ? `<span class="gt">${h(g.tag)}</span>` : ''}</div>
+        <span class="gcount">${pols.length} 份政策 / 口径</span></div>` +
+        pols.map(p => cardHTML(p, c.color)).join('');
+    }).join('');
+  } else {
+    body = (c.policies || []).map(p => cardHTML(p, c.color)).join('');
+    if (!body) body = '<div class="tip">本渠道暂无独立拆分卡片，请参见上方要点与路径。</div>';
+  }
+  return band + sub + `<div class="facts" style="--cc:${c.color}">${facts}</div>` + flowHTML(k, c.color) + body;
+}
+
+/* ---------- 横向对比 ---------- */
+function buildMatrix() {
+  const rows = MATRIX.map(m => {
+    const c = CH[m.key];
+    const cells = m.cells.map(cell => {
+      const mm = dm(cell[0]);
+      return `<div class="mxc d-${mm.k}"><span class="mkl">${mm.ic} ${mm.n}</span>
+        <span class="mv">${esc2br(cell[1])}</span></div>`;
+    }).join('');
+    return `<div class="mx"><div class="mxh" style="--cc:${c.color}"><h3>${c.icon} ${esc(m.name)}</h3></div>
+      ${m.short ? `<p class="mxshort">${h(m.short)}</p>` : ''}
+      <div class="mxg">${cells}</div></div>`;
+  }).join('');
+  const tips = [
+    '同一具体项目不得在不同中央资金渠道重复申报（14号文要求与中央预算内投资、超长期特别国债等做好衔接、避免交叉安排）。',
+    '专项债券可与新型政策性金融工具拼盘使用；新型政策性金融工具不可与超长期特别国债拼盘。',
+    '「补助／债券（资本性）」＋「贷款（债务性）」可按项目实际组合；共同门槛＝项目成熟、年内开工、绩效达标。',
+    '财综15号保障性安居补助等转移支付资金不得用于平衡预算或偿还存量债务。'
+  ];
+  return `<div class="mxhead"><h4>🗂️ 五类资金 · 五维横向对比</h4>
+      <p>每行一项渠道、五项并列，便于组合申报决策。行首色条即对应渠道主题色。</p></div>
+    ${rows}
+    <div class="card maxtips"><h4>💡 组合申报提示</h4><ul>
+      ${tips.map(t => `<li>${t}</li>`).join('')}</ul></div>`;
+}
+
+/* ================= 项目申报指引 · 资金匹配引擎 ================= */
+const G_TYPE = [
+  { k:'oldc',      ic:'🏘️', n:'老旧小区改造' },
+  { k:'danger',    ic:'🏚️', n:'危旧房·棚户区改造' },
+  { k:'village',   ic:'🏙️', n:'城中村改造' },
+  { k:'pipe',      ic:'🔧', n:'燃气/供水/供热管网更新' },
+  { k:'drain',     ic:'🌊', n:'排水防涝·海绵城市' },
+  { k:'heritage',  ic:'🏛️', n:'历史文化街区·名城保护' },
+  { k:'public',    ic:'🌳', n:'公共空间·老旧街区厂区' },
+  { k:'housing',   ic:'🏢', n:'保障性住房·租赁补贴' },
+  { k:'equip',     ic:'🛗', n:'加装电梯·设备更新' },
+  { k:'land',      ic:'🧱', n:'土地储备·存量房收购' },
+  { k:'community', ic:'🏡', n:'完整社区·小区配套' }
+];
+const G_OPT = {
+  region:   [['','请选择'],['east','东部地区'],['central','中部地区'],['west','西部地区'],['northeast','东北地区'],['municipality','直辖市']],
+  citySize: [['','请选择'],['mega','超大特大城市（城区常住人口≥300万）'],['big','大城市（100—300万）'],['small','中小城市·县城']],
+  nature:   [['','请选择'],['public','纯公益性（基本无直接收益）'],['quasi','准公益性（有部分经营/收费收益）'],['profit','经营性（有稳定收益、可覆盖本息）']],
+  subject:  [['','请选择'],['gov','政府部门/事业单位'],['platform','城投平台/国有企业'],['mixed','政企合作（含社会资本）'],['market','市场化企业']],
+  stage:    [['','请选择'],['planning','前期谋划/尚未立项'],['approved','已完成立项、待开工'],['building','在建（进度≤80%）'],['done','已完工/收尾']],
+  ready:    [['high','已纳入相关规划/项目库，手续基本齐备'],['mid','部分手续办理中，尚未纳入项目库'],['low','尚在谋划，规划与手续均未落实']]
+};
+const G_R = {}; G_TYPE.forEach(function (t) { G_R[t.k] = t; });
+const TN = function (k) { return G_R[k] ? G_R[k].n : k; };
+const LBL = function (arr, k) { const f = arr.find(function (x) { return x[0] === k; }); return f ? f[1] : ''; };
+const GC = { central:'#c62828', ustb:'#b7791f', bond:'#1f6fb2', policyfin:'#2e7d32', loan:'#6a4fa3' };
+
+/* 候选资金渠道：11 项，与图谱政策一一对应；打分规则源自各政策原文口径 */
+const G_CAND = [
+/* ---- 中央财政 · 中央预算内投资 358 ---- */
+{
+  key:'358', cat:'central', catN:'中央财政 · 中央预算内投资', name:'中央预算内投资 · 城市更新专项',
+  num:'发改投资〔2025〕358号', amt:'2026年 970亿元',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    const hit = ['oldc','danger','village','public','pipe','drain','community'].filter(function (k) { return T.has(k); });
+    let s = 0;
+    if (hit.length) { s = 30 + Math.min(4, hit.length) * 9; why.push('属于 8 大支持方向中的：' + hit.map(TN).join('、')); }
+    else { s = 8; notes.push('项目类型不在本专项 8 大方向内（老旧小区/危旧房/城中村/公共空间/老旧街区厂区/燃气供热管道/排水防涝/供水漏损治理）'); }
+    const mega = ['village','public'].filter(function (k) { return T.has(k); });
+    if (mega.length) {
+      if (pf.citySize === 'mega') { s += 8; why.push('城中村改造、城市公共空间两个方向要求城区常住人口 300 万以上大城市，您的城市规模符合门槛'); }
+      else { s -= 38; notes.push('⚠️ 城中村改造、城市公共空间改造利用两个方向限「城区常住人口 300 万以上」大城市；中小城市请改走方向①老旧小区改造或⑥⑦⑧管网类'); }
+    }
+    if (pf.nature === 'public') { s += 18; why.push('属公益类项目，契合中央预算内投资「支持公益类项目」的定位'); }
+    else if (pf.nature === 'quasi') { s += 11; }
+    else { s -= 14; notes.push('项目偏经营性，本渠道聚焦公益类项目，建议优先考虑专项债券或政策性金融工具'); }
+    if (pf.ready === 'high') { s += 12; why.push('前期手续基本齐备、已纳入规划/项目库，符合「前期成熟、年内开工」门槛'); }
+    else if (pf.ready === 'mid') { s += 2; notes.push('需先纳入本地区《城市基础设施更新改造重点领域实施方案》或《城市地下管网管廊及设施建设改造实施方案》后方可申报'); }
+    else { s -= 15; notes.push('⚠️ 尚未纳入实施方案与项目库，暂不具备申报条件，建议先做前期谋划与入库'); }
+    if (pf.stage === 'done') { s -= 60; notes.push('❌ 本渠道明确「不得用于已完工项目」'); }
+    else if (pf.stage === 'building') { s += 4; }
+    else if (pf.stage === 'approved') { s += 12; }
+    else { s -= 8; notes.push('项目尚未立项；需完成初设批复及用地/环评/用能等手续，且年内可开工'); }
+    if (['central','west','northeast'].indexOf(pf.region) > -1) { s += 5; why.push('中西部/东北地区补助比例更高（如中部方向①②③⑦⑧可达 70%），资金匹配度更优'); }
+    else if (pf.region === 'east') { s += 1; }
+    notes.push('补助基数不含征地拆迁/异地安置费用；须与中央财政补助、超长期特别国债避免交叉，同一项目不得重复申请');
+    notes.push('中央资金当年支付率≥65%、投资完成率≥80%；管网类新建项目须 2026年9月30日前开工');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 中央财政 · 中央预算内投资 910 ---- */
+{
+  key:'910', cat:'central', catN:'中央财政 · 中央预算内投资', name:'中央预算内投资 · 燃气管道老化更新与保障性安居工程专项',
+  num:'发改投资规〔2022〕910号', amt:'分档补助 30%—100%',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    if (T.has('pipe')) { s += 48; why.push('燃气/供水/供热等老化管道更新是本专项首位支持方向（庭院管道、立管、厂站与户内设施等）'); }
+    const mid = ['oldc','danger'].filter(function (k) { return T.has(k); });
+    if (mid.length) { s += 26 + mid.length * 4; why.push('老旧小区改造、棚户区改造属本专项「保障性安居工程」支持范围'); }
+    const sup = ['housing','community'].filter(function (k) { return T.has(k); });
+    if (sup.length) { s += 18; why.push('公共租赁住房/保障性租赁住房及配套基础设施属支持范围'); }
+    if (!s) { s = 6; notes.push('项目类型不在本专项支持范围（燃气等老化管道更新、老旧小区/棚户区/公租房/保租房）'); }
+    if (pf.nature === 'profit') { s -= 16; notes.push('本专项目向公益类属性，偏经营性项目建议走专项债券/贷款'); } else { s += 10; }
+    if (pf.stage === 'done') { s -= 55; notes.push('❌ 仅限计划新开工或续建且未完工项目'); }
+    else if (pf.stage === 'planning') { s -= 6; notes.push('需完成前期手续并纳入国家重大建设项目库后申报'); }
+    else { s += 8; }
+    if (pf.ready === 'low') { s -= 12; notes.push('须纳入国家重大建设项目库管理、前期手续齐备'); }
+    const rk = { east:'东部 30%', central:'中部 45%', west:'西部 60%', northeast:'东北 60%', municipality:'直辖市按东部口径' };
+    why.push('补助按区域分档：' + (rk[pf.region] || '东部 30%') + '；涉藏州县、南疆四地州最高可至 80%，西藏可达 100%');
+    notes.push('保障性安居工程部分：含保租房及配套的政府投资项目≤核定建安投资（或不含征拆总投资 30%）、企业投资或仅配套项目≤配套投资 50%');
+    notes.push('不得新增地方政府隐性债务；超过 6 个月未开工或资金闲置一年以上将被调整');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 中央财政 · 竞争性示范奖补 14 ---- */
+{
+  key:'14', cat:'central', catN:'中央财政 · 竞争性示范奖补', name:'中央财政支持实施城市更新行动（样板片区）',
+  num:'财办建〔2026〕14号', amt:'东≤8亿 / 中≤10亿 / 西≤12亿（≤15城）',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    if (pf.citySize === 'small') { s -= 34; notes.push('⚠️ 面向「地级及以上城市」，县级市/县城不符合申报主体要求'); } else { s += 16; }
+    const sup = ['public','heritage','oldc','community','drain','pipe'].filter(function (k) { return T.has(k); });
+    if (sup.length) { s += 18 + Math.min(4, sup.length) * 5; why.push('属重点样板片区建设支持内容：城市基础设施品质提升、完整社区与小区配套、历史文化街区/既有公建/公共空间活化利用'); }
+    else { s += 4; notes.push('样板片区建设侧重城市基础设施品质提升、完整社区、历史文化街区与公共空间活化利用，其他类型需打捆纳入片区方案'); }
+    if (pf.nature === 'profit') { s -= 14; notes.push('本渠道优先支持公益性、示范带动性强的样板片区项目'); } else { s += 14; }
+    if (pf.subject === 'gov' || pf.subject === 'platform' || pf.subject === 'mixed') { s += 8; } else { s -= 4; notes.push('需由城市人民政府统筹组织申报，建议由政府/平台牵头'); }
+    if (pf.stage === 'done') { s -= 45; notes.push('❌ 已完工项目不可申报'); }
+    else if (pf.stage === 'building') { s += 2; }
+    else { s += 8; }
+    const total = pf.total || 0;
+    if (total >= 30000) { s += 9; why.push('投资体量较大，具备样板片区「成片整体打造」的基础'); }
+    else if (total > 0 && total < 8000) { s -= 6; notes.push('样板片区要求实施范围相对集中、成片整体实施，单体小项目需打捆为片区方案'); }
+    if (pf.ready === 'low') { s -= 14; notes.push('需先建立组织领导与协调机制、编制三年行动方案，实施范围相对集中且主要位于老城区'); }
+    else if (pf.ready === 'high') { s += 8; }
+    why.push('中央财政按区域定额补助、分 3 年拨付：东≤8亿 / 中≤10亿 / 西≤12亿（直辖市≤12亿），2026 年评选≤15 个城市');
+    notes.push('属竞争性评审（省级推荐→书面评审按 120% 差额→现场答辩→集中公示），须准备答辩材料与绩效目标（公众满意度≥90%）');
+    notes.push('⚠️ 具体项目不得同时重复申请中央预算内投资、车购税、超长期特别国债等其他中央资金');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 中央财政 · 因素法 财综15 ---- */
+{
+  key:'15', cat:'central', catN:'中央财政 · 因素法转移支付', name:'中央财政城镇保障性安居工程补助资金',
+  num:'财综〔2024〕15号', amt:'80% 任务量 + 20% 绩效',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    const sup = ['housing','village','oldc','danger'].filter(function (k) { return T.has(k); });
+    let s = 0;
+    if (sup.length) { s = 26 + Math.min(4, sup.length) * 10; why.push('属于四类支持方向：住房保障（保租房/公租房/租赁补贴）、城中村改造、老旧小区改造、棚户区（城市危旧房）改造'); }
+    else { s = 8; notes.push('项目类型不在财综 15 号支持范围（住房保障/城中村改造/老旧小区改造/棚户区危旧房）'); }
+    if (pf.ready === 'low') { s -= 10; notes.push('须先纳入住房城乡建设部年度保障性安居工程计划（任务量、套数/面积/户数）'); }
+    else { s += 8; why.push('需纳入住建部年度计划、按任务量参与因素法分配'); }
+    if (pf.nature === 'profit') { s -= 12; } else { s += 10; }
+    if (pf.stage === 'done') { s -= 35; notes.push('❌ 按当年度计划任务与进度拨款，已完工项目不再安排'); } else { s += 6; }
+    why.push('分配机制：80% 按任务量 + 20% 按绩效奖励（奖励资金仅绩效≥80 分的省份参与）');
+    notes.push('属「中央对地方转移支付」，由省级/市县逐级分解到项目；不得平衡预算、不得偿还债务本息，严禁提取工作/管理经费');
+    notes.push('老旧小区改造测算权重：改造面积40%+户数40%+楼栋数10%+小区数10%；绩效调节权重：住房保障50%/城中村20%/旧改20%/棚改10%');
+    notes.push('实施期限至 2027 年，期满评估是否延续');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 中央财政 · 竞争性示范 35 海绵 ---- */
+{
+  key:'35', cat:'central', catN:'中央财政 · 竞争性示范奖补', name:'海绵城市建设示范补助',
+  num:'财办建〔2021〕35号', amt:'9/10/11亿（县级市 7/8/9亿）',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    if (T.has('drain')) { s += 46; why.push('排水防涝、系统化海绵城市是示范城市核心支持内容（雨水调蓄、管网、内河湖生态修复等）'); }
+    if (T.has('pipe')) { s += 18; why.push('供排水管网、管廊为支持内容'); }
+    if (T.has('public')) { s += 14; why.push('绿地、道路广场等海绵化改造为支持内容'); }
+    if (T.has('community') || T.has('oldc')) { s += 10; why.push('居住社区/老旧小区海绵化改造可纳入'); }
+    if (!s) { s = 6; notes.push('项目类型与海绵城市示范支持内容关联较弱'); }
+    if (pf.nature === 'profit') { s -= 10; } else { s += 8; }
+    if (pf.stage === 'done') { s -= 40; notes.push('❌ 已完工项目不纳入'); } else { s += 6; }
+    why.push('以「城市」为单位整体申报、竞争性选拔示范城市：地级及以上城市 东9亿/中10亿/西11亿（县级市 东7/中8/西9亿），分 3 年拨付');
+    notes.push('须「系统化全域推进」，新区目标导向、老区问题导向「干一片、成一片」；严禁「调水造景」「大树进城」等做法');
+    notes.push('已获中央海绵城市建设试点资金的城市原则上不再申报；每省每批最多推荐 2 个城市、累计≤4 个');
+    notes.push('绩效评价结果与资金拨付挂钩：进度明显滞后将缓拨、扣减补助');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 中央财政 · 按项目 195 名城 ---- */
+{
+  key:'195', cat:'central', catN:'中央财政 · 按项目申报补助', name:'国家级风景名胜区和历史文化名城保护补助',
+  num:'财建〔2009〕195号', amt:'按项目分配 · 无名额定额',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    if (T.has('heritage')) { s += 58; why.push('历史文化街区保护规划编制、核心保护范围内历史建筑修缮属本补助支持范围'); }
+    else { s = 5; notes.push('项目类型不属于历史文化名城/风景名胜区保护范围'); }
+    if (pf.nature !== 'profit') { s += 10; } else { s -= 10; }
+    if (pf.stage === 'done') { s -= 40; notes.push('❌ 已完工项目不予支持'); } else { s += 4; }
+    notes.push('名额限制：历史文化名城项目每省每年≤1 个，风景名胜区项目每省每年≤2 个（国家级风景名胜区达 10 处以上的省份≤3 个）');
+    notes.push('名城规划编制须街区已在名城保护规划中划定并经省政府公布；历史建筑修缮须具资质单位设计＋县级以上城乡规划部门组织专家审查');
+    notes.push('无名额定额，按项目申报、据专家审查意见分配下达；每年 5 月底前报财政部/住建部');
+    why.push('属「按项目申报补助」，单项目支持规模有限，宜作为补充资金');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 超长期特别国债 · 两重 ---- */
+{
+  key:'lz', cat:'ustb', catN:'超长期特别国债 ·“两重”', name:'“两重”建设 · 城市地下管网与城市更新',
+  num:'“十五五”规划 · 吹风会口径', amt:'1600亿元（2026年）',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    const core = ['pipe','drain'].filter(function (k) { return T.has(k); });
+    if (core.length) { s += 44 + core.length * 4; why.push('城市地下管网（燃气/排水/供水/供热）建设改造是「两重」的首要投向——2026 年安排 1600 亿元、较上年增加 250 亿元'); }
+    if (T.has('oldc') || T.has('danger')) { s += 30; why.push('城镇老旧小区改造、城市危旧房改造属优先支持的公共安全与民生保障类'); }
+    if (T.has('public')) { s += 12; why.push('老旧街区（厂区）改造提升等发展类为统筹支持方向'); }
+    if (T.has('housing') || T.has('land') || T.has('equip') || T.has('heritage')) { s += 2; notes.push('本方向主要投向地下管网与老旧小区/危旧房改造，其他类型匹配度有限'); }
+    if (!s) { s = 6; }
+    if (pf.nature === 'profit') { s -= 12; notes.push('聚焦「硬投资」的公益/准公益项目'); } else { s += 10; }
+    if (pf.stage === 'done') { s -= 50; notes.push('❌ 须 2026 年内形成实物工作量，已完工项目不纳入'); }
+    else if (pf.stage === 'planning') { s -= 10; notes.push('需纳入「两重」/超长期国债项目清单，项目成熟且年内可开工'); }
+    else { s += 10; why.push('项目在建/待开工，可在 2026 年内形成实物工作量'); }
+    if (pf.ready === 'low') { s -= 12; notes.push('须落实「先体检、后更新」，建立专项规划—片区策划—项目实施方案体系'); }
+    notes.push('遵循「统筹规划、突出重点」「先急后缓、分步实施」；优先支持民生安全类，兼顾发展类');
+    notes.push('⚠️ 新型政策性金融工具明确不可与超长期特别国债拼盘；与中央预算内投资等须避免交叉重复');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 超长期特别国债 · 两新 ---- */
+{
+  key:'lx', cat:'ustb', catN:'超长期特别国债 ·“两新”', name:'“两新” · 大规模设备更新（加装电梯等）',
+  num:'发改环资〔2025〕1745号', amt:'央地 9:1 · 中央 85/90/95%',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 0;
+    if (T.has('equip')) { s += 54; why.push('「老旧小区加装电梯」已新增纳入设备更新支持范围，住宅老旧电梯更新亦在支持之列'); }
+    if (T.has('pipe')) { s += 14; why.push('市政设备更新可结合设备更新政策申报'); }
+    if (T.has('housing')) { s += 6; }
+    if (!s) { s = 5; notes.push('项目类型与「两新」设备更新支持范围（加装电梯、住宅老旧电梯、节能降碳环保设备、资源循环利用）关联较弱'); }
+    if (pf.nature === 'profit') { s -= 8; } else { s += 6; }
+    if (pf.stage === 'done') { s -= 45; notes.push('❌ 已完工项目不纳入'); } else { s += 8; }
+    why.push('属「两新」政策下的超长期特别国债资金，按季分批次下达、中央资金直补直达');
+    notes.push('硬性条件：淘汰设备的综合折旧年限、技术指标、最低使用年限须符合要求');
+    notes.push('纳入「两新」项目清单；省级政府为第一责任主体、全链条监管；2026-12-31 未用完的中央资金额度收回中央');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 地方政府专项债券 ---- */
+{
+  key:'bond', cat:'bond', catN:'地方政府专项债券', name:'地方政府专项债券',
+  num:'国办发〔2024〕52号', amt:'资本金上限 30%（+5pct）',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 34;
+    const sup = ['oldc','danger','village','public','community','housing','land','pipe','drain'].filter(function (k) { return T.has(k); });
+    if (sup.length) { s += Math.min(22, sup.length * 7); why.push('属专项债允许投向（未列入负面清单）：' + sup.map(TN).join('、')); }
+    else { s -= 6; notes.push('请核对是否落入负面清单：无收益项目、楼堂馆所、形象工程、除保障性住房和土地储备以外的房地产开发、主题公园/仿古城等商业设施、一般竞争性产业'); }
+    if (pf.nature === 'public') { s -= 36; notes.push('⚠️ 专项债要求项目「有一定收益、能覆盖本息、融资收益自求平衡」——纯公益性无收益项目不适配，建议优先走中央预算内投资/中央财政补助'); }
+    else if (pf.nature === 'quasi') { s += 16; why.push('准公益性项目具备一定收益，可通过专项收益平衡债券本息'); }
+    else { s += 24; why.push('经营性项目收益稳定，最契合专项债「融资收益自求平衡」要求'); }
+    if (pf.stage === 'done') { s -= 45; notes.push('❌ 已完工项目不可发行；在建项目可走续发「绿色通道」'); }
+    else if (pf.stage === 'planning') { s -= 8; notes.push('需先落实「一案两书」（实施方案＋财务报告＋法律意见书）并纳入项目清单与信息系统'); }
+    else { s += 8; }
+    if (pf.subject === 'gov') { s -= 6; notes.push('发行/实施主体一般为政府或平台，建议提前明确项目单位与偿债安排'); }
+    why.push('以省为单位，可用作项目资本金的规模上限由 25% 提高至 30%（正面清单含「城市更新」专项）');
+    notes.push('实务口径：发行规模≤项目预期土地出让收入，且预期土地出让收入≥应还款总额 120%；土地储备类按收大于支/收不抵支分类处理');
+    notes.push('债券期限原则上≤5 年（试点区域可延至 7—10 年），须匹配项目回收期；严禁新增隐性债务、建立偿债备付金制度');
+    notes.push('「自审自发」试点：北京、上海、江苏、浙江、安徽、福建、山东、湖南、广东、四川 10 省＋河北雄安新区，省级审核后即可组织发行；其他省份按季度常态化审核');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 新型政策性金融工具 ---- */
+{
+  key:'policyfin', cat:'policyfin', catN:'新型政策性金融工具', name:'新型政策性金融工具（城市更新/地下管网方向）',
+  num:'2025年创设 · 政策性强', amt:'2025年全国 6500亿元',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 30;
+    const sup = ['pipe','drain','oldc','danger','village','community','public','housing'].filter(function (k) { return T.has(k); });
+    if (sup.length) { s += Math.min(26, sup.length * 7); why.push('属工具支持的城市更新投向：' + sup.map(TN).join('、')); }
+    if (T.has('land')) { s -= 45; notes.push('❌ 明确不支持土地储备、商业房地产项目'); }
+    if (T.has('equip')) { s -= 4; notes.push('工具主要投向建设类项目，纯设备更新匹配度较低'); }
+    if (pf.nature === 'public') { s -= 14; notes.push('要求项目「可产生一定收益」（公益性/经营性）——纯无收益项目难以通过评审'); }
+    else if (pf.nature === 'profit') { s += 20; why.push('经营性项目更易通过银行评审，资金可直接作项目资本金'); }
+    else { s += 16; why.push('准公益性项目可产生部分收益，契合工具「一定收益」的门槛'); }
+    if (pf.stage === 'planning') { s -= 22; notes.push('⚠️ 须「至少完成立项」，且原则上为当年新开工或在建项目——前期谋划阶段暂不符合'); }
+    else if (pf.stage === 'building') { s += 14; why.push('在建项目（进度≤80%）符合工具投放条件'); }
+    else if (pf.stage === 'approved') { s += 18; why.push('已完成立项、当年可新开工，最符合工具投放时点'); }
+    if (pf.stage === 'done') { s -= 50; notes.push('❌ 已完工项目不纳入'); }
+    why.push('直接作为项目资本金投放（不超过最低资本金比例的 50%，重点领域可提至 80%），期限最长 20 年');
+    notes.push('可与地方政府专项债券拼盘使用；⚠️ 但不可与超长期特别国债拼盘，须在年内实现资金投放并形成实物工作量');
+    notes.push('负面清单：不得用于土地储备、商业房地产、楼堂馆所、「两高一低」、弥补财政缺口、置换已到位资本金，不触碰隐性债务');
+    if (pf.total && pf.gap > 0) { notes.push('按单个项目最低资本金 20% 测算，工具资金约可覆盖项目总投资的 10%，其余缺口需另行组合'); }
+    why.push('申报流程：区/条线部门征集备选→市发改委筛选并商银行形成上报清单→国家发改委审核推送→银行尽调评审后投放');
+    return { score:s, why:why, notes:notes };
+  }
+},
+/* ---- 长周期贷款 金规7号 ---- */
+{
+  key:'loan', cat:'loan', catN:'长周期贷款', name:'城市更新项目贷款（长周期贷款）',
+  num:'金规〔2026〕7号', amt:'≤30年（特殊可延35年）',
+  ev: function (pf) {
+    const T = pf.types, why = [], notes = [];
+    let s = 40;
+    if (T.has('land')) { s -= 30; notes.push('⚠️ 贷款资金不得用于缴纳土地出让金及相关税款、净地供应前的征收拆迁安置补偿等前期环节'); }
+    if (T.has('village')) { s -= 8; notes.push('城中村改造中的征收补偿等前期环节不得使用贷款资金，仅建设改造环节可支持'); }
+    if (pf.nature === 'profit') { s += 26; why.push('项目具备充足经营性收入覆盖本息，最符合「商业可持续」的放贷要求'); }
+    else if (pf.nature === 'quasi') { s += 16; why.push('准公益性项目有部分现金流，可按经营权/收费权应收账款设置担保'); }
+    else { s -= 16; notes.push('纯公益、无经营性现金流项目难以满足「充足经营性收入覆盖贷款本息」的要求，建议以财政补助为主'); }
+    if (pf.subject === 'gov') { s -= 12; notes.push('借款人须为市场化运营主体；政府部门/事业单位不宜直接作为借款人，建议由平台或项目公司承接'); }
+    else if (pf.subject === 'market') { s += 10; why.push('市场化运营主体、财务信用良好，符合借款主体要求'); }
+    else { s += 8; }
+    if (pf.stage === 'planning') { s -= 14; notes.push('需已明确实施主体、编制项目实施方案及可行性研究报告，并纳入城市更新项目库'); }
+    else if (pf.stage === 'approved') { s += 12; }
+    else if (pf.stage === 'building') { s += 10; why.push('在建项目融资需求明确，可通过银团/组合融资支持'); }
+    if (pf.stage === 'done') { s -= 45; notes.push('❌ 已完工项目不再发放建设贷款'); }
+    if ((pf.total || 0) >= 50000) { s += 8; why.push('贷款金额较大，原则上通过银团贷款提供融资支持、严防过度授信'); }
+    why.push('可作为「补助/债券之外的债务性资金」补充，与专项资金组合使用');
+    notes.push('期限：研究报告口径政策性银行原则上≤30 年、特殊情况经审批可延至 35 年；自有资本金比例不低于 20%');
+    notes.push('专款专用、封闭运行：资本金、贷款发放支用、项目收入、偿还均通过资金监管账户，项目间资金不得混同');
+    notes.push('贷款人自主决策、自担风险、自负盈亏；严禁新增地方政府隐性债务，不得接受任何形式的政府隐性增信');
+    return { score:s, why:why, notes:notes };
+  }
+}
+];
+
+/* 打分与排序 */
+function scoreProject(pf) {
+  const list = G_CAND.map(function (c) {
+    const r = c.ev(pf) || {};
+    const s = Math.max(0, Math.min(100, Math.round(r.score || 0)));
+    return { key:c.key, name:c.name, cat:c.cat, catN:c.catN, num:c.num, amt:c.amt, color:GC[c.cat] || '#46536b',
+      score:s, why:(r.why || []), notes:(r.notes || []) };
+  });
+  list.sort(function (x, y) { return y.score - x.score; });
+  return list;
+}
+
+/* ---------- 表单 ---------- */
+function buildGuide() {
+  const chips = G_TYPE.map(function (t) {
+    return '<button type="button" class="chip" data-type="' + t.k + '">' + t.ic + ' ' + esc(t.n) + '</button>';
+  }).join('');
+  const sel = function (name) {
+    return '<select class="inp" name="' + name + '">' + G_OPT[name].map(function (o) {
+      return '<option value="' + o[0] + '">' + esc(o[1]) + '</option>';
+    }).join('') + '</select>';
+  };
+  const fld = function (lb, inner, req, hint) {
+    return '<div class="fld"><label class="flabel">' + esc(lb) + (req ? '<em>*</em>' : '') + (hint ? '<i>' + esc(hint) + '</i>' : '') + '</label>' + inner + '</div>';
+  };
+  return '<section class="gcard">' +
+    '<div class="ghead"><div class="gi">📍</div><div><h2>项目申报指引 · 资金匹配</h2>' +
+    '<p>填写项目的简要信息，系统按政策口径为您的项目匹配可用的资金渠道，并给出<b>匹配度</b>、<b>匹配理由</b>与<b>注意事项</b>。带 <em style="color:#c62828;font-style:normal">*</em> 为必填。</p></div></div>' +
+    '<div class="gsteps"><span class="gstep">① 项目基本信息</span><span class="gstep">② 类型与收益属性</span><span class="gstep">③ 实施条件</span><span class="gstep">④ 获取匹配结果</span></div>' +
+    '<form id="guideForm" autocomplete="off">' +
+      fld('项目名称', '<input class="inp" type="text" name="name" placeholder="如：XX市XX区老旧小区改造项目"/>', false, '选填') +
+      '<div class="g2">' +
+        fld('所在区域', sel('region'), true, '影响补助比例分档') +
+        fld('城市规模', sel('citySize'), true, '影响部分方向的准入') +
+      '</div>' +
+      fld('项目类型', '<div class="chips" id="typeChips">' + chips + '</div>', true, '可多选；如同时包含多个类型') +
+      '<div class="g2">' +
+        fld('项目收益属性', sel('nature'), true, '决定能否用债券/贷款') +
+        fld('实施主体', sel('subject'), true) +
+      '</div>' +
+      '<div class="g2">' +
+        fld('项目阶段', sel('stage'), true, '已完工项目多数渠道不支持') +
+        fld('前期成熟度', sel('ready'), false) +
+      '</div>' +
+      '<div class="g2">' +
+        fld('总投资（万元）', '<input class="inp" type="number" min="0" step="100" name="total" placeholder="如：30000"/>', false, '选填') +
+        fld('资金缺口（万元）', '<input class="inp" type="number" min="0" step="100" name="gap" placeholder="如：12000"/>', false, '选填') +
+      '</div>' +
+      '<div class="gfoot"><button type="submit" class="btn">🔍 一键匹配资金渠道</button>' +
+      '<button type="button" class="btn ghost" id="guideDemo">📋 载入示例</button>' +
+      '<button type="reset" class="btn ghost" id="guideClear">↺ 清空</button>' +
+      '<span class="gerr" id="guideErr"></span></div>' +
+    '</form></section>' +
+    '<div id="guideResult" style="margin-top:16px">' +
+      '<div class="gph">📌 填写上方信息后点击「一键匹配」，这里会列出<b>最适合您项目的资金渠道排序</b>。<br/>' +
+      '第一次可以先点 <b>「载入示例」</b> 看看效果。</div>' +
+    '</div>';
+}
+
+/* ---------- 结果渲染 ---------- */
+const G_LEVEL = function (s) {
+  if (s >= 72) return { t:'高匹配', c:'#2e7d32', bg:'#e8f5ec' };
+  if (s >= 52) return { t:'中匹配', c:'#b7791f', bg:'#fdf4e3' };
+  return { t:'较低匹配', c:'#7d8798', bg:'#f1f3f7' };
+};
+function renderResult(pf, list) {
+  const top = list[0];
+  const typeNames = G_TYPE.filter(function (t) { return pf.types.has(t.k); }).map(function (t) { return t.n; });
+  const level = G_LEVEL(top.score).t;
+  const strong = list.filter(function (x) { return x.score >= 52; });
+  const combos = strong.filter(function (x) { return x.key !== top.key; }).slice(0, 2);
+
+  const pfChips = ['项目类型：' + typeNames.join('、'),
+    '区域：' + LBL(G_OPT.region, pf.region),
+    '规模：' + LBL(G_OPT.citySize, pf.citySize),
+    '收益属性：' + LBL(G_OPT.nature, pf.nature),
+    '阶段：' + LBL(G_OPT.stage, pf.stage)].filter(function (x) { return x.indexOf('：') < x.length - 1; })
+    .map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('');
+
+  const summary = '<div class="rsum"><h3>📊 匹配评估结果' + (pf.name ? ' · ' + esc(pf.name) : '') + '</h3>' +
+    '<p>' + (top.score >= 52
+      ? '根据项目画像，综合匹配分析：最适配的资金渠道为 <b>' + esc(top.name) + '</b>（匹配度 <b>' + top.score + '%</b>，' + level + '）。'
+      : '根据项目画像，暂未出现高度适配的资金渠道；相对最接近的是 <b>' + esc(top.name) + '</b>（匹配度 <b>' + top.score + '%</b>）。请重点查看下表的<b>注意事项</b>，按提示补齐条件或调整申报方向。') +
+    (combos.length ? '建议以其为主渠道，并按下表组合 ' + combos.map(function (c) { return '「' + esc(c.name) + '」'; }).join('、') + ' 作为补充。' : '') +
+    ' 下方为全部 ' + list.length + ' 个资金渠道的匹配度排序。</p>' +
+    '<div class="pf">' + pfChips + '</div></div>';
+
+  const chart = '<div class="bchart"><div class="bt">📈 各资金渠道匹配度</div>' + list.map(function (x) {
+    return '<div class="brow"><span class="bnm" title="' + esc(x.name) + '">' + esc(x.name) + '</span>' +
+      '<span class="btrack"><i style="width:' + x.score + '%;background:' + x.color + '"></i></span>' +
+      '<b class="bval">' + x.score + '%</b></div>';
+  }).join('') + '</div>';
+
+  const cards = list.map(function (x, i) {
+    const lv = G_LEVEL(x.score);
+    const whyTxt = x.why.length ? x.why.map(esc).join('；') : '与渠道的支持范围或申报条件重叠较少，匹配度偏低。';
+    const cap = x.score >= 52 ? 4 : 3;
+    const noteHtml = x.notes.length
+      ? '<div class="rnote"><span class="lb">⚠️ 注意事项</span><ul>' + x.notes.slice(0, cap).map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></div>'
+      : '';
+    return '<div class="rmatch" style="--cc:' + x.color + '">' +
+      '<div class="rmh"><span class="rank">' + (i + 1) + '</span>' +
+      '<h4>' + esc(x.name) + '</h4>' +
+      '<span class="rtag">' + esc(x.catN) + '</span>' +
+      '<span class="level" style="color:' + lv.c + ';background:' + lv.bg + '">' + lv.t + '</span>' +
+      '<span class="score"><span class="sv">' + x.score + '%</span><span class="sl">匹配度</span></span></div>' +
+      '<div class="bar"><i style="width:' + x.score + '%"></i></div>' +
+      '<p class="rmeta">' + (x.num ? esc(x.num) + ' · ' : '') + (x.amt ? '资金规模/标准：' + esc(x.amt) : '') + '</p>' +
+      '<div class="rwhy"><span class="lb">✅ 为什么匹配：</span>' + whyTxt + '</div>' +
+      noteHtml +
+      '</div>';
+  }).join('');
+
+  /* 组合申报与全局提示 */
+  const tips = [];
+  tips.push('同一具体项目不得在不同中央资金渠道重复申报；中央财政、中央预算内投资、超长期特别国债之间须做好衔接、避免交叉安排。');
+  tips.push('「补助/债券（资本性资金）」与「长周期贷款（债务性资金）」可按项目实际组合使用，贷款用于补充建设资金。');
+  const has = function (k) { return list.some(function (x) { return x.key === k && x.score >= 52; }); };
+  if (has('bond') && has('policyfin')) { tips.push('✅ 地方政府专项债券 与 新型政策性金融工具 可拼盘使用，共同解决资本金与建设资金缺口。'); }
+  if (has('lz') && has('policyfin')) { tips.push('⚠️ 新型政策性金融工具 与 超长期特别国债 不可对同一项目拼盘，二者请择一申报。'); }
+  if (pf.nature === 'public') { tips.push('⚠️ 纯公益性项目不宜单独依赖专项债券与商业贷款，建议以中央预算内投资/中央财政补助为主，缺口由财政资金统筹保障。'); }
+  if (pf.stage === 'done') { tips.push('⚠️ 当前选择「已完工」——绝大多数渠道不支持已完工项目，请核对项目状态。'); }
+  if (pf.types.has('village')) { tips.push('⚠️ 城中村改造专项借款（建保〔2023〕80号）政策窗口正在收窄——国家已不再组织第三批申报，请勿以其作为主要资金来源。'); }
+  tips.push('所有渠道的共同门槛：项目成熟、年内可开工、前期手续齐备、绩效达标；转移支付类资金不得用于平衡预算或偿还存量债务。');
+  const combo = '<div class="card maxtips"><h4>🧩 组合申报与通用提示</h4><ul>' +
+    tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></div>';
+
+  const again = '<div style="text-align:center;margin-top:8px"><button type="button" class="btn ghost" data-act="again">↺ 重新评估</button></div>';
+
+  return summary + chart + cards + combo + again;
+}
+
+/* ---------- 交互 ---------- */
+function guideCollect(form) {
+  const v = function (n) { const el = form.querySelector('[name="' + n + '"]'); return el ? String(el.value || '').trim() : ''; };
+  const types = new Set();
+  form.querySelectorAll('#typeChips .chip.on').forEach(function (c) { types.add(c.dataset.type); });
+  return {
+    name: v('name'), region: v('region'), citySize: v('citySize'), nature: v('nature'),
+    subject: v('subject'), stage: v('stage'), ready: v('ready') || 'mid',
+    total: Number(v('total') || 0), gap: Number(v('gap') || 0), types: types
+  };
+}
+function guideValidate(pf) {
+  const miss = [];
+  if (!pf.types.size) miss.push('项目类型（至少选 1 项）');
+  if (!pf.region) miss.push('所在区域');
+  if (!pf.citySize) miss.push('城市规模');
+  if (!pf.nature) miss.push('项目收益属性');
+  if (!pf.subject) miss.push('实施主体');
+  if (!pf.stage) miss.push('项目阶段');
+  return miss;
+}
+function guideRun() {
+  const form = document.getElementById('guideForm');
+  if (!form) return;
+  const pf = guideCollect(form);
+  const errEl = document.getElementById('guideErr');
+  const miss = guideValidate(pf);
+  if (miss.length) {
+    if (errEl) errEl.textContent = '⚠️ 请补充：' + miss.join('、');
+    const box0 = document.getElementById('guideResult');
+    if (box0) box0.innerHTML = '<div class="gph">📌 还差几项必填信息（' + esc(miss.join('、')) + '），补齐后即可生成匹配结果。</div>';
+    return;
+  }
+  if (errEl) errEl.textContent = '';
+  const list = scoreProject(pf);
+  const box = document.getElementById('guideResult');
+  box.innerHTML = renderResult(pf, list);
+  box.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+function guideDemo() {
+  const form = document.getElementById('guideForm');
+  if (!form) return;
+  form.querySelector('[name="name"]').value = '示例：XX市老城区老旧小区与管网综合改造项目';
+  form.querySelector('[name="region"]').value = 'central';
+  form.querySelector('[name="citySize"]').value = 'big';
+  form.querySelector('[name="nature"]').value = 'quasi';
+  form.querySelector('[name="subject"]').value = 'platform';
+  form.querySelector('[name="stage"]').value = 'approved';
+  form.querySelector('[name="ready"]').value = 'high';
+  form.querySelector('[name="total"]').value = '32000';
+  form.querySelector('[name="gap"]').value = '14000';
+  form.querySelectorAll('#typeChips .chip').forEach(function (c) {
+    c.classList.toggle('on', ['oldc','pipe','community'].indexOf(c.dataset.type) > -1);
+  });
+  guideRun();
+}
+function initGuide() {
+  const form = document.getElementById('guideForm');
+  if (!form) return;
+  form.querySelectorAll('#typeChips .chip').forEach(function (c) {
+    c.addEventListener('click', function () { c.classList.toggle('on'); });
+  });
+  form.addEventListener('submit', function (e) { e.preventDefault(); guideRun(); });
+  form.addEventListener('reset', function () {
+    setTimeout(function () {
+      form.querySelectorAll('#typeChips .chip.on').forEach(function (c) { c.classList.remove('on'); });
+      const errEl = document.getElementById('guideErr'); if (errEl) errEl.textContent = '';
+      const box = document.getElementById('guideResult');
+      if (box) box.innerHTML = '<div class="gph">📌 填写上方信息后点击「一键匹配」，这里会列出<b>最适合您项目的资金渠道排序</b>。</div>';
+    }, 0);
+  });
+  const dm2 = document.getElementById('guideDemo');
+  if (dm2) dm2.addEventListener('click', guideDemo);
+  const box = document.getElementById('guideResult');
+  if (box) box.addEventListener('click', function (e) {
+    const b = e.target.closest('[data-act="again"]');
+    if (b) { document.getElementById('guideForm').scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+}
+
+/* ---------- 组装与交互 ---------- */
+const NAV = [['overview', '🏠', '总览'], ['guide', '📍', '项目申报指引']]
+  .concat(CATS.map(c => [c.key, c.icon, c.name]))
+  .concat([['matrix', '🗂️', '横向对比']]);
+const navColor = k => (k === 'overview' || k === 'matrix') ? '#46536b' : (k === 'guide' ? '#2f4d86' : CH[k].color);
+
+const viewsEl = document.getElementById('views');
+const tabsEl = document.getElementById('tabs');
+
+let all = '';
+all += `<section class="view" id="view-overview">${buildOverview()}</section>`;
+all += `<section class="view" id="view-guide">${buildGuide()}</section>`;
+CATS.forEach(c => { all += `<section class="view" id="view-${c.key}">${buildChannel(c.key)}</section>`; });
+all += `<section class="view" id="view-matrix">${buildMatrix()}</section>`;
+viewsEl.innerHTML = all;
+initGuide();
+
+tabsEl.innerHTML = NAV.map(n =>
+  `<button type="button" class="pill" data-v="${n[0]}" data-c="${navColor(n[0])}">${n[1]}&nbsp;${esc(n[2])}</button>`
+).join('');
+
+function go(v) {
+  const valid = NAV.some(n => n[0] === v);
+  if (!valid) v = 'overview';
+  document.querySelectorAll('section.view').forEach(s => s.classList.toggle('on', s.id === 'view-' + v));
+  tabsEl.querySelectorAll('.pill').forEach(b => {
+    const on = b.dataset.v === v;
+    b.classList.toggle('on', on);
+    b.style.background = on ? b.dataset.c : '';
+    b.style.borderColor = on ? b.dataset.c : '';
+  });
+  window.scrollTo({ top: 0, behavior: 'auto' });
+}
+tabsEl.addEventListener('click', e => {
+  const b = e.target.closest('.pill');
+  if (b) go(b.dataset.v);
+});
+go('overview');
+
+try { window.__t = { go: go }; } catch (e) { /* ignore */ }
+
+</script>
+</body>
+</html>
